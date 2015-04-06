@@ -27,16 +27,33 @@ public interface Figure {
     public ArrayList<Shape> getShapes();
     public Shape getShape(int index);
     public String getType();
+    public double[] getMovementVector();
+    public double getMaxSpeed();
+    public double getMinSpeed();
+    public boolean getMoving();
+    public String getDirection();
     
     public void setState(String state);
     public void setPosition(double[] position);
     public void setPositionX(double positionX);
     public void setPositionY(double positionY);
-    public void setVelocity();
-    public double setSpeed();
+    public void setVelocity(double velocity);
+    public void setSpeed(double speed);
     public void setShapes(ArrayList<Shape> shapes);
     public void addShape(Shape shape);
     public void removeShape(Shape shape);
     public void removeShape(int index);
+    public void addState(String key, String state);
+    public void setMovementVector(double vecX, double vecY);
+    public void setMaxSpeed(double maxSpeed);
+    public void setMinSpeed(double minSpeed);
+    public void setMoving(boolean moving);
+    public void setDirection(String direction);
+    
+    public void increaseSpeed();
+    public void decreaseSpeed();
+    
+    public void moveRight();
+    public void moveLeft();
     
 }

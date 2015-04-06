@@ -13,26 +13,29 @@ import java.util.ArrayList;
  * @author Philipp
  */
 public class Player extends Infantry {
+    
         
     public Player() {
+        
+        addState("standing_default", "standing_default");
+        addState("standing_alert", "standing_alert");
+        addState("standing_aiming", "standing_aiming");
+        addState("standing_firing", "standing_firing");
+        addState("crouching_alert", "crouching_alert");
+        addState("crouching_aiming", "crouching_aiming");
+        addState("crouching_firing", "crouching_firing");
+        addState("running", "running");
+        addState("sprinting", "sprinting");
+        
         Rectangle a = new Rectangle();
-        a.setX(50);
-        a.setY(50);
-        a.setWidth(200);
-        a.setHeight(100);
+        a.setX(0);
+        a.setY(400);
+        a.setWidth(100);
+        a.setHeight(200);
         a.setArcWidth(20);
         a.setArcHeight(20);
         
         addShape(a);
         
-        Rectangle b = new Rectangle();
-        b.setX(250);
-        b.setY(400);
-        b.setWidth(100);
-        b.setHeight(100);
-        b.setArcWidth(20);
-        b.setArcHeight(20);
-        
-        addShape(b);
     }
 }
