@@ -35,15 +35,13 @@ public class JavaFXApplication1 extends Application {
     final double minX = 0;
     final double maxX = 1280;
     final double minY = 0;
-    final double maxY = 900;
+    final double maxY = 800;
     final double speed = 100;
     Player player = new Player();
     
     final DoubleProperty velocity = new SimpleDoubleProperty();
+    final DoubleProperty verticalVelocity = new SimpleDoubleProperty();
     final LongProperty lastUpdateTime = new SimpleLongProperty();
-    
-    
-    
     
     @Override
     public void start(Stage primaryStage) {
@@ -66,20 +64,29 @@ public class JavaFXApplication1 extends Application {
                 } else if(player.getMoving() == true) {
                     player.increaseSpeed();
                 }
+                
+                player.fall();
+                
                 velocity.set(player.getSpeed());
+                verticalVelocity.set(player.getVerticalSpeed());
                 if (lastUpdateTime.get() > 0) {
                     
                     final double elapsedSeconds = (timestamp - lastUpdateTime.get()) / 1_000_000_000.0 ;
                     final double deltaX = elapsedSeconds * velocity.get();
+                    final double deltaY = elapsedSeconds * verticalVelocity.get();
                     final double oldX = player.getShape(0).getTranslateX();
-                    final double newX = Math.max(minX, Math.min(maxX, oldX + deltaX));
+                    final double oldY = player.getShape(0).getTranslateY();
+                    final double newX = Math.max(minX, Math.min(maxX - 100.0, oldX + deltaX));
+                    final double newY = Math.max(minY, Math.min(maxY - 600.0, oldY + deltaY));
                     player.getShape(0).setTranslateX(newX);
+                    player.getShape(0).setTranslateY(newY);
                 }
                 lastUpdateTime.set(timestamp);
             }
         };
         
         animation.start();
+        
         
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
@@ -88,6 +95,10 @@ public class JavaFXApplication1 extends Application {
                     player.moveRight();
                 } else if (event.getCode() == KeyCode.A) {
                     player.moveLeft();
+                } else if (event.getCode() == KeyCode.SPACE) {
+                    player.jump();
+                } else if (event.getCode() == KeyCode.SHIFT) {
+                    player.setSprinting(true);
                 }
             }
         });
@@ -99,13 +110,13 @@ public class JavaFXApplication1 extends Application {
                 player.setMoving(false);
                 } else if (event.getCode() == KeyCode.A && event.getCode() == KeyCode.D) {
                 player.setMoving(false);
+                } else if (event.getCode() == KeyCode.SPACE) {
+                    player.setJumping(false);
+                } else if (event.getCode() == KeyCode.SHIFT) {
+                    player.setSprinting(false);
                 }
             }
         });
-        
-//        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-//                
-//        }
         
         primaryStage.setTitle("Box Test");
         primaryStage.setScene(scene);

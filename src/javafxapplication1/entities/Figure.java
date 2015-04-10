@@ -32,6 +32,11 @@ public interface Figure {
     public double getMinSpeed();
     public boolean getMoving();
     public String getDirection();
+    public boolean getFalling();
+    public double getVerticalVelocity();
+    public double getVerticalSpeed();
+    public boolean getJumping();
+    public boolean getSprinting();
     
     public void setState(String state);
     public void setPosition(double[] position);
@@ -49,11 +54,22 @@ public interface Figure {
     public void setMinSpeed(double minSpeed);
     public void setMoving(boolean moving);
     public void setDirection(String direction);
+    public void setFalling(boolean falling);
+    public void setVerticalVelocity(double verticalVelocity);
+    public void setVerticalSpeed(double verticalSpeed);
+    public void setJumping(boolean jumping);
+    public void setSprinting(boolean sprinting);
     
     public void increaseSpeed();
     public void decreaseSpeed();
     
     public void moveRight();
     public void moveLeft();
+    
+    public void fall();
+    
+    public void stop();
+    
+    public void jump();
     
 }

@@ -29,8 +29,20 @@ public abstract class Infantry implements Figure{
     private double[] movementVector = new double[] {0.0, 0.0};
     private double maxSpeed = 500.0;
     private double minSpeed = -500.0;
+    private double maxSpeedBase = 500.0;
+    
+    private double maxVerticalSpeed = 1000.0;
+    private double minVerticalSpeed = -1000.0;
+    private double verticalSpeed = 0.0;
+    private double verticalVelocity = 0.0;
+    private double verticalVelocityIncrease = 30.0;
+    
     private boolean moving = false;
     private String direction = "right";
+    
+    private boolean falling = true;
+    private boolean jumping = false;
+    private boolean sprinting = false;
    
     
     @Override
@@ -186,7 +198,6 @@ public abstract class Infantry implements Figure{
         switch (direction) {
             case "right":
                 if(speed < maxSpeed) {
-                    System.out.println("Increase " + speed + " " + velocity + " " + velocityIncrease);
                     velocity += velocityIncrease;
                     double tmpSpeed = speed + velocity;
                     if(tmpSpeed > maxSpeed) {
@@ -203,7 +214,6 @@ public abstract class Infantry implements Figure{
                 } break;
             case "left":
                 if(speed > minSpeed) {
-                    System.out.println("Increase " + speed + " " + velocity + " " + velocityIncrease);
                     velocity -= velocityIncrease;
                     double tmpSpeed = speed + velocity;
                     if(tmpSpeed < minSpeed) {
@@ -233,7 +243,6 @@ public abstract class Infantry implements Figure{
         switch (direction) {
             case "right":
                 if(speed != 0.0) {
-                    System.out.println("Decrease " + speed + " " + velocity + " " + velocityDecrease);
                     velocity -= velocityDecrease;
                     double tmpSpeed = speed + velocity;
                     if(tmpSpeed < 0.0) {
@@ -248,7 +257,6 @@ public abstract class Infantry implements Figure{
                 } break;
             case "left":
                 if(speed != 0.0) {
-                    System.out.println("Decrease " + speed + " " + velocity + " " + velocityDecrease);
                     velocity += velocityDecrease;
                     double tmpSpeed = speed + velocity;
                     if(tmpSpeed > 0.0) {
@@ -300,5 +308,92 @@ public abstract class Infantry implements Figure{
     public void setDirection(String direction) {
         this.direction = direction;
     }
+
+    @Override
+    public boolean getFalling() {
+        return falling;
+    }
+
+    @Override
+    public void setFalling(boolean falling) {
+        this.falling = falling;
+    }
+
+    @Override
+    public void fall() {
+        if(verticalSpeed < maxVerticalSpeed) {
+            double tmpVerticalSpeed = verticalSpeed + verticalVelocityIncrease;
+            if(tmpVerticalSpeed >= maxVerticalSpeed) {
+                verticalSpeed = maxVerticalSpeed;
+            } else {
+                verticalSpeed = tmpVerticalSpeed;
+            }
+        }
+    }
+
+    @Override
+    public double getVerticalVelocity() {
+        return verticalVelocity;
+    }
+
+    @Override
+    public void setVerticalVelocity(double verticalVelocity) {
+        this.verticalVelocity = verticalVelocity;
+    }
+
+    @Override
+    public double getVerticalSpeed() {
+        return verticalSpeed;
+    }
+
+    @Override
+    public void setVerticalSpeed(double verticalSpeed) {
+        this.verticalSpeed = verticalSpeed;
+    }
+
+    @Override
+    public void stop() {
+        speed = 0.0;
+        verticalSpeed = 0.0;
+        velocity = 0.0;
+        verticalVelocity = 0.0;
+    }
+
+    @Override
+    public void jump() {
+        if(!jumping) {
+            verticalSpeed = -800.0;
+            jumping = true;
+        }
+    }
+
+    @Override
+    public boolean getJumping() {
+        return jumping;
+    }
+
+    @Override
+    public void setJumping(boolean jumping) {
+        this.jumping = jumping;
+    }
+
+    @Override
+    public boolean getSprinting() {
+        return sprinting;
+    }
+
+    @Override
+    public void setSprinting(boolean sprinting) {
+        this.sprinting = sprinting;
+        if(sprinting) {
+            maxSpeed = maxSpeedBase*2;
+            minSpeed = -maxSpeedBase*2;
+        } else {
+            maxSpeed = maxSpeedBase;
+            minSpeed = -maxSpeedBase;
+        }
+            
+    }
+    
     
 }
