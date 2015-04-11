@@ -11,17 +11,11 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleLongProperty;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import javafx.scene.shape.*;
 import javafxapplication1.API.API;
+import javafxapplication1.controls.CommandHandler;
 import javafxapplication1.entities.Player;
 
 /**
@@ -38,6 +32,8 @@ public class JavaFXApplication1 extends Application {
     final double maxY = 800;
     final double speed = 100;
     Player player = new Player();
+    
+    final CommandHandler commandHandler = new CommandHandler();
     
     final DoubleProperty velocity = new SimpleDoubleProperty();
     final DoubleProperty verticalVelocity = new SimpleDoubleProperty();
@@ -87,42 +83,11 @@ public class JavaFXApplication1 extends Application {
         
         animation.start();
         
-        
-        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                if (event.getCode()==KeyCode.D) {
-                    player.moveRight();
-                } else if (event.getCode() == KeyCode.A) {
-                    player.moveLeft();
-                } else if (event.getCode() == KeyCode.SPACE) {
-                    player.jump();
-                } else if (event.getCode() == KeyCode.SHIFT) {
-                    player.setSprinting(true);
-                }
-            }
-        });
-
-        scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                if (event.getCode() == KeyCode.D || event.getCode() == KeyCode.A) {
-                player.setMoving(false);
-                } else if (event.getCode() == KeyCode.A && event.getCode() == KeyCode.D) {
-                player.setMoving(false);
-                } else if (event.getCode() == KeyCode.SPACE) {
-                    player.setJumping(false);
-                } else if (event.getCode() == KeyCode.SHIFT) {
-                    player.setSprinting(false);
-                }
-            }
-        });
+        scene = commandHandler.setEventHandlers(scene, player);
         
         primaryStage.setTitle("Box Test");
         primaryStage.setScene(scene);
         primaryStage.show();
-        
-        
     }
 
     /**
