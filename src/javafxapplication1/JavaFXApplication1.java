@@ -17,6 +17,9 @@ import javafx.stage.Stage;
 import javafxapplication1.API.API;
 import javafxapplication1.controls.CommandHandler;
 import javafxapplication1.entities.Player;
+import platforms.Floor_1;
+import platforms.Platform;
+import platforms.Wall_1;
 
 /**
  *
@@ -32,6 +35,8 @@ public class JavaFXApplication1 extends Application {
     final double maxY = 800;
     final double speed = 100;
     Player player = new Player();
+    Platform wall_1 = new Wall_1(0,0,50,500,0);
+    Platform floor_1 = new Floor_1(0,maxY-50.0,500,50,0);
     
     final CommandHandler commandHandler = new CommandHandler();
     
@@ -45,6 +50,8 @@ public class JavaFXApplication1 extends Application {
         API api = new API();
         
         api.addFigure(player);
+        api.addPlatform(wall_1);
+        api.addPlatform(floor_1);
             
         Pane root = new Pane();
         root = api.addToPane(root);

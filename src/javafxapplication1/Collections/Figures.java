@@ -15,7 +15,7 @@ import javafxapplication1.entities.Figure;
  */
 public class Figures {
     
-    private HashMap<String, ArrayList<Figure>> allFigures;
+    private final HashMap<String, ArrayList<Figure>> allFigures;
     
     public Figures() {
         allFigures = new HashMap<>();
@@ -30,12 +30,12 @@ public class Figures {
     }
     
     public ArrayList<Figure> getAllFiguresList() {
-        ArrayList<Figure> allFigures = new ArrayList<>();
-        allFigures.addAll(this.allFigures.get("Infantry"));
-        allFigures.addAll(this.allFigures.get("Cavalry"));
-        allFigures.addAll(this.allFigures.get("Tanks"));
-        allFigures.addAll(this.allFigures.get("Vehicles"));
-        return allFigures;
+        ArrayList<Figure> tmpAllFigures = new ArrayList<>();
+        tmpAllFigures.addAll(this.allFigures.get("Infantry"));
+        tmpAllFigures.addAll(this.allFigures.get("Cavalry"));
+        tmpAllFigures.addAll(this.allFigures.get("Tanks"));
+        tmpAllFigures.addAll(this.allFigures.get("Vehicles"));
+        return tmpAllFigures;
     }
     
     public void addFigure(Figure figure) {
