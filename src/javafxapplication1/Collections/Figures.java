@@ -57,13 +57,7 @@ public class Figures {
         }
     }
     
-    public ArrayList<Group> getAllGroups() {
-        ArrayList<Group> groups = new ArrayList<>();
-        getAllFiguresList().stream().forEach((figure) -> {
-            groups.add(figure.getShapeGroup());
-        });
-        return groups;
-    }
+    
     
     
 }

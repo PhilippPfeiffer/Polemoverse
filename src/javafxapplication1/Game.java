@@ -81,8 +81,8 @@ public class Game extends Application {
                     final double elapsedSeconds = (timestamp - lastUpdateTime.get()) / 1_000_000_000.0 ;
                     final double deltaX = elapsedSeconds * velocity.get();
                     final double deltaY = elapsedSeconds * verticalVelocity.get();
-                    final double oldX = player.getShapeGroup().getLayoutX();
-                    final double oldY = player.getShapeGroup().getLayoutY();
+                    final double oldX = player.getPositionX();
+                    final double oldY = player.getPositionY();
                     final double newX = Math.max(minX, Math.min(maxX - player.getWidth(), oldX + deltaX));
                     final double newY = Math.max(minY, Math.min(maxY - player.getHeight(), oldY + deltaY));
                     player.setPosition(newX, newY);

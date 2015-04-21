@@ -53,16 +53,19 @@ public class Player extends Infantry {
         c.setHeight(getHeight());
         c.setOpacity(0.5);
         
+        Rectangle d = new Rectangle();
+        d.setX(getWidth()/3);
+        d.setY(getHeight());
+        d.setWidth(getWidth()/3);
+        d.setHeight(5);
+        d.setOpacity(0.5);
+        d.setFill(Color.RED);
+        
+        
         addShape(a);
         addShape(b);
         addShape(c);
-        
-        
-        addShapeToGroup(a);
-        addShapeToGroup(b);
-        addShapeToGroup(c);
-        
-        
-        
+        addShape(d);
+
     }
 }

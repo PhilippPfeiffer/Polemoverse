@@ -39,7 +39,8 @@ public class API {
         Iterator<Figure> iter_1 = allFigures.iterator();
         while(iter_1.hasNext()) {
             Figure currentFigure = iter_1.next();
-            root.getChildren().add(currentFigure.getShapeGroup());
+            //root.getChildren().add(currentFigure.getShapeGroup());
+            root.getChildren().addAll(currentFigure.getShapes());
 //            ArrayList<Shape> allShapes = currentFigure.getShapes();
 //            Iterator<Shape> innerIter = allShapes.iterator();
 //            while(innerIter.hasNext()) {

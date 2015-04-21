@@ -40,7 +40,6 @@ public interface Figure {
     public double getVerticalSpeed();
     public boolean getJumping();
     public boolean getSprinting();
-    public Group getShapeGroup();
     public double getHeight();
     public double getWidth();
     
@@ -66,7 +65,6 @@ public interface Figure {
     public void setVerticalSpeed(double verticalSpeed);
     public void setJumping(boolean jumping);
     public void setSprinting(boolean sprinting);
-    public void addShapeToGroup(Shape shape);
     public void setHeight(double height);
     public void setWidth(double width);
     
@@ -85,6 +83,8 @@ public interface Figure {
     public void handleCollision(Platform platform);
     
     public void setAPI(API api);
+    
+    public void updateShapePositions();
     
     
     

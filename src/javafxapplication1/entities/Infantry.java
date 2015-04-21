@@ -21,8 +21,7 @@ import platforms.Platform;
  */
 public abstract class Infantry implements Figure{
     
-    private final Group shapeGroup = new Group();
-
+    
     private final String type = "Infantry";
     private final HashMap<String, String> stateMap = new HashMap<>();
     private String currentState = "";
@@ -68,7 +67,6 @@ public abstract class Infantry implements Figure{
         double newX = positionX + x;
         double newY = positionY + y;
         setPosition(newX, newY);
-        shapeGroup.relocate(newX, newY);
     }
 
     @Override
@@ -118,19 +116,16 @@ public abstract class Infantry implements Figure{
     public void setPosition(double[] position) {
         positionX = position[0];
         positionY = position[1];
-        shapeGroup.relocate(position[0], position[1]);
     }
 
     @Override
     public void setPositionX(double positionX) {
         this.positionX = positionX;
-        shapeGroup.relocate(positionX, this.positionY);
     }
 
     @Override
     public void setPositionY(double positionY) {
         this.positionY = positionY;
-        shapeGroup.relocate(this.positionX, positionY);
     }
 
     @Override
@@ -418,15 +413,7 @@ public abstract class Infantry implements Figure{
             
     }
 
-    @Override
-    public Group getShapeGroup() {
-        return shapeGroup;
-    }
-
-    @Override
-    public void addShapeToGroup(Shape shape) {
-        shapeGroup.getChildren().add(shape);
-    }
+   
 
     @Override
     public double getHeight() {
@@ -464,30 +451,46 @@ public abstract class Infantry implements Figure{
     public void setPosition(double positionX, double positionY) {
         this.positionX = positionX;
         this.positionY = positionY;
-        shapeGroup.relocate(positionX, positionY);
+        updateShapePositions();
     }
     
     public void checkbounds() {
         
         boolean collisionDetected = false;
-        Shape boundaryBox = getShape(0);
+        Shape verticalBox = shapes.get(0);
+        Shape horizontalBox = shapes.get(1);
+        Shape boundingBox = shapes.get(2);
+        Shape fallBox = shapes.get(3);
         
-         for (Shape static_bloc : api.getPlatforms().getAllPlatformsList().get(0).getShapes()) {
-            if (static_bloc != boundaryBox) {
-                if (boundaryBox.getParent().getBoundsInParent().intersects(static_bloc.getBoundsInParent())) {
+        for (Platform platform : api.getPlatforms().getAllPlatformsList()) {
+         for (Shape static_bloc : platform.getShapes()) {
+            if (static_bloc != verticalBox) {
+                if (static_bloc.intersects(verticalBox.getBoundsInParent())) {
                     collisionDetected = true;
-                                handleCollision(api.getPlatforms().getAllPlatformsList().get(0));
-
+                    String platformType = api.getPlatforms().getAllPlatformsList().get(0).getType();
+                    switch (platformType) {
+                        case "Floor": 
+                            verticalSpeed = 0;
+                            move(0,-0.5);
+                            checkbounds();
+                            setFalling(false);
+                            break;
+                    }
                 }
             }
+            if(!static_bloc.intersects(fallBox.getBoundsInParent())){
+                        setFalling(true);
+                    }
+        }   
         }
+        
+         
 
         if (collisionDetected) {
-            boundaryBox.setFill(Color.BLUE);
+            verticalBox.setFill(Color.BLUE);
             setFalling(false);
         } else {
-            boundaryBox.setFill(Color.GREEN);
-            setFalling(true);
+            verticalBox.setFill(Color.GREEN);
         }
         
     }
@@ -495,6 +498,14 @@ public abstract class Infantry implements Figure{
     @Override
     public void setAPI(API api) {
         this.api = api;
+    }
+
+    @Override
+    public void updateShapePositions() {
+        for(Shape shape : shapes) {
+            shape.setTranslateX(positionX);
+            shape.setTranslateY(positionY);
+        }
     }
     
 }
