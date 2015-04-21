@@ -7,6 +7,9 @@ package javafxapplication1.entities;
 
 import javafx.scene.shape.*;
 import java.util.ArrayList;
+import javafx.scene.Group;
+import javafxapplication1.API.API;
+import platforms.Platform;
 
 /**
  *
@@ -37,9 +40,13 @@ public interface Figure {
     public double getVerticalSpeed();
     public boolean getJumping();
     public boolean getSprinting();
+    public Group getShapeGroup();
+    public double getHeight();
+    public double getWidth();
     
     public void setState(String state);
     public void setPosition(double[] position);
+    public void setPosition(double positionX, double positionY);
     public void setPositionX(double positionX);
     public void setPositionY(double positionY);
     public void setVelocity(double velocity);
@@ -59,6 +66,9 @@ public interface Figure {
     public void setVerticalSpeed(double verticalSpeed);
     public void setJumping(boolean jumping);
     public void setSprinting(boolean sprinting);
+    public void addShapeToGroup(Shape shape);
+    public void setHeight(double height);
+    public void setWidth(double width);
     
     public void increaseSpeed();
     public void decreaseSpeed();
@@ -71,5 +81,12 @@ public interface Figure {
     public void stop();
     
     public void jump();
+    
+    public void handleCollision(Platform platform);
+    
+    public void setAPI(API api);
+    
+    
+    
     
 }

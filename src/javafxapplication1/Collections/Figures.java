@@ -7,6 +7,7 @@ package javafxapplication1.Collections;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import javafx.scene.Group;
 import javafxapplication1.entities.Figure;
 
 /**
@@ -54,6 +55,14 @@ public class Figures {
                 allFigures.get("Vehicle").add(figure);
                 break;
         }
+    }
+    
+    public ArrayList<Group> getAllGroups() {
+        ArrayList<Group> groups = new ArrayList<>();
+        getAllFiguresList().stream().forEach((figure) -> {
+            groups.add(figure.getShapeGroup());
+        });
+        return groups;
     }
     
     

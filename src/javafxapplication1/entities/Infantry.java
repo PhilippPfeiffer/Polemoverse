@@ -7,7 +7,11 @@ package javafxapplication1.entities;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import javafx.scene.Group;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
+import javafxapplication1.API.API;
+import platforms.Platform;
 
 
 
@@ -17,6 +21,7 @@ import javafx.scene.shape.Shape;
  */
 public abstract class Infantry implements Figure{
     
+    private final Group shapeGroup = new Group();
 
     private final String type = "Infantry";
     private final HashMap<String, String> stateMap = new HashMap<>();
@@ -37,12 +42,20 @@ public abstract class Infantry implements Figure{
     private double verticalVelocity = 0.0;
     private double verticalVelocityIncrease = 30.0;
     
+    private double height;
+    private double width;
+    
     private boolean moving = false;
     private String direction = "right";
     
     private boolean falling = true;
     private boolean jumping = false;
     private boolean sprinting = false;
+    
+    private double positionX;
+    private double positionY;
+    
+    private API api;
    
     
     @Override
@@ -52,7 +65,10 @@ public abstract class Infantry implements Figure{
 
     @Override
     public void move(double x, double y) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        double newX = positionX + x;
+        double newY = positionY + y;
+        setPosition(newX, newY);
+        shapeGroup.relocate(newX, newY);
     }
 
     @Override
@@ -67,17 +83,18 @@ public abstract class Infantry implements Figure{
 
     @Override
     public double[] getPosition() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        double[] position = {positionX, positionY};
+        return position;
     }
 
     @Override
     public double getPositionX() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return positionX;
     }
 
     @Override
     public double getPositionY() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return positionY;
     }
 
     @Override
@@ -99,17 +116,21 @@ public abstract class Infantry implements Figure{
 
     @Override
     public void setPosition(double[] position) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        positionX = position[0];
+        positionY = position[1];
+        shapeGroup.relocate(position[0], position[1]);
     }
 
     @Override
     public void setPositionX(double positionX) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.positionX = positionX;
+        shapeGroup.relocate(positionX, this.positionY);
     }
 
     @Override
     public void setPositionY(double positionY) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.positionY = positionY;
+        shapeGroup.relocate(this.positionX, positionY);
     }
 
     @Override
@@ -269,7 +290,6 @@ public abstract class Infantry implements Figure{
                         speed = tmpSpeed;
                     } 
                 } break;
-                
         }
     }
 
@@ -321,14 +341,17 @@ public abstract class Infantry implements Figure{
 
     @Override
     public void fall() {
-        if(verticalSpeed < maxVerticalSpeed) {
-            double tmpVerticalSpeed = verticalSpeed + verticalVelocityIncrease;
-            if(tmpVerticalSpeed >= maxVerticalSpeed) {
+        if(falling) {
+            if(verticalSpeed < maxVerticalSpeed) {
+                double tmpVerticalSpeed = verticalSpeed + verticalVelocityIncrease;
+                if(tmpVerticalSpeed >= maxVerticalSpeed) {
                 verticalSpeed = maxVerticalSpeed;
-            } else {
-                verticalSpeed = tmpVerticalSpeed;
-            }
+                } else {
+                    verticalSpeed = tmpVerticalSpeed;
+                }
+            }  
         }
+        
     }
 
     @Override
@@ -394,6 +417,84 @@ public abstract class Infantry implements Figure{
         }
             
     }
+
+    @Override
+    public Group getShapeGroup() {
+        return shapeGroup;
+    }
+
+    @Override
+    public void addShapeToGroup(Shape shape) {
+        shapeGroup.getChildren().add(shape);
+    }
+
+    @Override
+    public double getHeight() {
+        return height;
+    }
+
+    @Override
+    public double getWidth() {
+        return width;
+    }
+
+    @Override
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
+    @Override
+    public void setWidth(double width) {
+        this.width = width;
+    }
+
+    @Override
+    public void handleCollision(Platform platform) {
+        String platformType = platform.getType();
+        switch (platformType) {
+            case "Floor": 
+                verticalSpeed = 0;
+                move(0,-0.1);
+                checkbounds();
+                break;
+        }
+    }
+
+    @Override
+    public void setPosition(double positionX, double positionY) {
+        this.positionX = positionX;
+        this.positionY = positionY;
+        shapeGroup.relocate(positionX, positionY);
+    }
     
+    public void checkbounds() {
+        
+        boolean collisionDetected = false;
+        Shape boundaryBox = getShape(0);
+        
+         for (Shape static_bloc : api.getPlatforms().getAllPlatformsList().get(0).getShapes()) {
+            if (static_bloc != boundaryBox) {
+                if (boundaryBox.getParent().getBoundsInParent().intersects(static_bloc.getBoundsInParent())) {
+                    collisionDetected = true;
+                                handleCollision(api.getPlatforms().getAllPlatformsList().get(0));
+
+                }
+            }
+        }
+
+        if (collisionDetected) {
+            boundaryBox.setFill(Color.BLUE);
+            setFalling(false);
+        } else {
+            boundaryBox.setFill(Color.GREEN);
+            setFalling(true);
+        }
+        
+    }
+
+    @Override
+    public void setAPI(API api) {
+        this.api = api;
+    }
     
 }

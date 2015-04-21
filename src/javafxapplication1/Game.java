@@ -25,7 +25,7 @@ import platforms.Wall_1;
  *
  * @author Philipp
  */
-public class JavaFXApplication1 extends Application {
+public class Game extends Application {
     
         
     
@@ -34,7 +34,7 @@ public class JavaFXApplication1 extends Application {
     final double minY = 0;
     final double maxY = 800;
     final double speed = 100;
-    Player player = new Player();
+    Player player = new Player(250, 400);
     Platform wall_1 = new Wall_1(0,0,50,500,0);
     Platform floor_1 = new Floor_1(0,maxY-50.0,500,50,0);
     
@@ -43,18 +43,20 @@ public class JavaFXApplication1 extends Application {
     final DoubleProperty velocity = new SimpleDoubleProperty();
     final DoubleProperty verticalVelocity = new SimpleDoubleProperty();
     final LongProperty lastUpdateTime = new SimpleLongProperty();
+    final API api = new API();
     
     @Override
     public void start(Stage primaryStage) {
-        
-        API api = new API();
+
         
         api.addFigure(player);
-        api.addPlatform(wall_1);
+        //api.addPlatform(wall_1);
         api.addPlatform(floor_1);
             
         Pane root = new Pane();
         root = api.addToPane(root);
+        
+        player.setAPI(api);
         
         Scene scene = new Scene(root, maxX, maxY);
         
@@ -70,6 +72,8 @@ public class JavaFXApplication1 extends Application {
                 
                 player.fall();
                 
+                player.checkbounds();
+                
                 velocity.set(player.getSpeed());
                 verticalVelocity.set(player.getVerticalSpeed());
                 if (lastUpdateTime.get() > 0) {
@@ -77,12 +81,11 @@ public class JavaFXApplication1 extends Application {
                     final double elapsedSeconds = (timestamp - lastUpdateTime.get()) / 1_000_000_000.0 ;
                     final double deltaX = elapsedSeconds * velocity.get();
                     final double deltaY = elapsedSeconds * verticalVelocity.get();
-                    final double oldX = player.getShape(0).getTranslateX();
-                    final double oldY = player.getShape(0).getTranslateY();
-                    final double newX = Math.max(minX, Math.min(maxX - 100.0, oldX + deltaX));
-                    final double newY = Math.max(minY, Math.min(maxY - 600.0, oldY + deltaY));
-                    player.getShape(0).setTranslateX(newX);
-                    player.getShape(0).setTranslateY(newY);
+                    final double oldX = player.getShapeGroup().getLayoutX();
+                    final double oldY = player.getShapeGroup().getLayoutY();
+                    final double newX = Math.max(minX, Math.min(maxX - player.getWidth(), oldX + deltaX));
+                    final double newY = Math.max(minY, Math.min(maxY - player.getHeight(), oldY + deltaY));
+                    player.setPosition(newX, newY);
                 }
                 lastUpdateTime.set(timestamp);
             }
@@ -102,6 +105,10 @@ public class JavaFXApplication1 extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+    }
+    
+    public API getAPI() {
+        return api;
     }
     
 }

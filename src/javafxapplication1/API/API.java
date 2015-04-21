@@ -8,6 +8,7 @@ package javafxapplication1.API;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
 import javafxapplication1.Collections.Figures;
 import javafxapplication1.Collections.Platforms;
@@ -38,12 +39,13 @@ public class API {
         Iterator<Figure> iter_1 = allFigures.iterator();
         while(iter_1.hasNext()) {
             Figure currentFigure = iter_1.next();
-            ArrayList<Shape> allShapes = currentFigure.getShapes();
-            Iterator<Shape> innerIter = allShapes.iterator();
-            while(innerIter.hasNext()) {
-                Shape currentShape = innerIter.next();
-                root.getChildren().add(currentShape);
-            }
+            root.getChildren().add(currentFigure.getShapeGroup());
+//            ArrayList<Shape> allShapes = currentFigure.getShapes();
+//            Iterator<Shape> innerIter = allShapes.iterator();
+//            while(innerIter.hasNext()) {
+//                Shape currentShape = innerIter.next();
+//                root.getChildren().add(currentShape);
+//            }
         }
         
         /**
@@ -71,4 +73,16 @@ public class API {
     public void addPlatform(Platform platform) {
         platforms.addPlatform(platform);
     }
+    
+    public Figures getFigures() {
+        return figures;
+    }
+    
+    public Platforms getPlatforms() {
+        return platforms;
+    }
+    
+    
+    
+    
 }
