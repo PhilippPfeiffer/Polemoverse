@@ -83,7 +83,12 @@ public class API {
         return platforms;
     }
     
+    public void moveAllPlatforms(double deltaX, double deltaY) {
+        platforms.moveAllPlatforms(deltaX, deltaY);
+    }
     
-    
+    public void moveAllFigures() {
+        //TODO
+    }
     
 }

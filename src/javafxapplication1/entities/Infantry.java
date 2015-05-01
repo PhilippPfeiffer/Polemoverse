@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafxapplication1.API.API;
 import platforms.Platform;
@@ -465,7 +466,7 @@ public abstract class Infantry implements Figure{
         for (Platform platform : api.getPlatforms().getAllPlatformsList()) {
          for (Shape static_bloc : platform.getShapes()) {
             if (static_bloc != verticalBox) {
-                if (static_bloc.intersects(verticalBox.getBoundsInParent())) {
+                if (static_bloc.getBoundsInParent().intersects(verticalBox.getBoundsInParent())) {
                     collisionDetected = true;
                     String platformType = api.getPlatforms().getAllPlatformsList().get(0).getType();
                     switch (platformType) {
@@ -478,7 +479,7 @@ public abstract class Infantry implements Figure{
                     }
                 }
             }
-            if(!static_bloc.intersects(fallBox.getBoundsInParent())){
+            if(!static_bloc.getBoundsInParent().intersects(fallBox.getBoundsInParent())){
                         setFalling(true);
                     }
         }   
@@ -506,6 +507,89 @@ public abstract class Infantry implements Figure{
             shape.setTranslateX(positionX);
             shape.setTranslateY(positionY);
         }
+    }
+
+    @Override
+    public void initializeBoxes() {
+        //vertical rectangle
+        Rectangle a = new Rectangle();
+        a.setX((getWidth()/2)-(getWidth()/3/2));
+        a.setY(0);
+        a.setWidth(getWidth()/3);
+        a.setHeight(getHeight());
+        
+        //horizontal rectangle
+        Rectangle b = new Rectangle ();
+        b.setX(0);
+        b.setY(getHeight()/3);
+        b.setWidth(getWidth());
+        b.setHeight(getHeight()/3);
+        
+        //bounding box
+        Rectangle c = new Rectangle();
+        c.setX(0);
+        c.setY(0);
+        c.setWidth(getWidth());
+        c.setHeight(getHeight());
+        c.setOpacity(0.5);
+        
+        //bottom feeler
+        Rectangle d = new Rectangle();
+        d.setX(getWidth()/3);
+        d.setY(getHeight());
+        d.setWidth(getWidth()/3);
+        d.setHeight(5);
+        d.setOpacity(0.5);
+        d.setFill(Color.RED);
+        
+        //top feeler
+        Rectangle e = new Rectangle();
+        e.setX(getWidth()/3);
+        e.setY(-5);
+        e.setWidth(getWidth()/3);
+        e.setHeight(5);
+        e.setOpacity(0.5);
+        e.setFill(Color.RED);
+        
+        //right feeler
+        Rectangle f = new Rectangle();
+        f.setX(getWidth());
+        f.setY(getHeight()/3);
+        f.setWidth(5);
+        f.setHeight(getHeight()/3);
+        f.setOpacity(0.5);
+        f.setFill(Color.RED);
+        
+        //left feeler
+        Rectangle g = new Rectangle();
+        g.setX(-5);
+        g.setY(getHeight()/3);
+        g.setWidth(5);
+        g.setHeight(getHeight()/3);
+        g.setOpacity(0.5);
+        g.setFill(Color.RED);
+        
+        addShape(a);
+        addShape(b);
+        addShape(c);
+        addShape(d);
+        addShape(e);
+        addShape(f);
+        addShape(g);
+
+    }
+    
+    @Override
+    public void initializeStates() {
+        addState("standing_default", "standing_default");
+        addState("standing_alert", "standing_alert");
+        addState("standing_aiming", "standing_aiming");
+        addState("standing_firing", "standing_firing");
+        addState("crouching_alert", "crouching_alert");
+        addState("crouching_aiming", "crouching_aiming");
+        addState("crouching_firing", "crouching_firing");
+        addState("running", "running");
+        addState("sprinting", "sprinting");
     }
     
 }

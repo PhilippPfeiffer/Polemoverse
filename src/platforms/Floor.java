@@ -97,6 +97,19 @@ public abstract class Floor implements Platform{
     public Shape getShape(int index) {
         return shapes.get(index);
     }
-    
+
+    @Override
+    public void move(double deltaX, double deltaY) {
+        
+        double newX = posX + deltaX;
+        double newY = posY + deltaY;
+        setPosX(newX);
+        setPosY(newY);
+        
+        for(Shape shape : shapes) {
+        shape.relocate(newX, newY);
+        System.out.println(shape.getBoundsInParent().getMinX() + " " +shape.getBoundsInParent().getMinY());
+        }
+    }
 }
     

@@ -97,5 +97,10 @@ public abstract class Wall implements Platform{
     public Shape getShape(int index) {
         return shapes.get(index);
     }
+
+    @Override
+    public void move(double newPosX, double newPostY) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

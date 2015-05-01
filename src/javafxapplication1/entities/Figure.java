@@ -86,6 +86,9 @@ public interface Figure {
     
     public void updateShapePositions();
     
+    public void initializeBoxes();
+    public void initializeStates();
+    
     
     
     

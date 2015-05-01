@@ -24,48 +24,8 @@ public class Player extends Infantry {
         setWidth(150);
         setHeight(200);
         
-        addState("standing_default", "standing_default");
-        addState("standing_alert", "standing_alert");
-        addState("standing_aiming", "standing_aiming");
-        addState("standing_firing", "standing_firing");
-        addState("crouching_alert", "crouching_alert");
-        addState("crouching_aiming", "crouching_aiming");
-        addState("crouching_firing", "crouching_firing");
-        addState("running", "running");
-        addState("sprinting", "sprinting");
+        initializeStates();
         
-        Rectangle a = new Rectangle();
-        a.setX((getWidth()/2)-(getWidth()/3/2));
-        a.setY(0);
-        a.setWidth(getWidth()/3);
-        a.setHeight(getHeight());
-        
-        Rectangle b = new Rectangle ();
-        b.setX(0);
-        b.setY((getHeight()/2)-(getHeight()/2/2));
-        b.setWidth(getWidth());
-        b.setHeight(getWidth()/2);
-        
-        Rectangle c = new Rectangle();
-        c.setX(0);
-        c.setY(0);
-        c.setWidth(getWidth());
-        c.setHeight(getHeight());
-        c.setOpacity(0.5);
-        
-        Rectangle d = new Rectangle();
-        d.setX(getWidth()/3);
-        d.setY(getHeight());
-        d.setWidth(getWidth()/3);
-        d.setHeight(5);
-        d.setOpacity(0.5);
-        d.setFill(Color.RED);
-        
-        
-        addShape(a);
-        addShape(b);
-        addShape(c);
-        addShape(d);
-
+        initializeBoxes();
     }
 }

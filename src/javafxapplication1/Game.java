@@ -85,6 +85,7 @@ public class Game extends Application {
                     final double oldY = player.getPositionY();
                     final double newX = Math.max(minX, Math.min(maxX - player.getWidth(), oldX + deltaX));
                     final double newY = Math.max(minY, Math.min(maxY - player.getHeight(), oldY + deltaY));
+                    api.moveAllPlatforms(-deltaX, 0);
                     player.setPosition(newX, newY);
                 }
                 lastUpdateTime.set(timestamp);

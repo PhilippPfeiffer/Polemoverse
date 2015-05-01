@@ -16,6 +16,7 @@ import platforms.Platform;
 public class Platforms {
     
     private final HashMap<String, ArrayList<Platform>> allPlatforms;
+    private final ArrayList<Platform> allPlatformsList;
     
     public Platforms() {
         allPlatforms = new HashMap<>();
@@ -24,6 +25,7 @@ public class Platforms {
         allPlatforms.put("Slopes", new ArrayList<>());
         allPlatforms.put("Corners", new ArrayList<>());
         allPlatforms.put("Ceilings", new ArrayList<>());
+        allPlatformsList = new ArrayList<>();
     }
     
     public HashMap<String, ArrayList<Platform>> getAllPlatforms() {
@@ -31,13 +33,7 @@ public class Platforms {
     }
     
     public ArrayList<Platform> getAllPlatformsList() {
-        ArrayList<Platform> tmpAllPlatforms = new ArrayList<>();
-        tmpAllPlatforms.addAll(this.allPlatforms.get("Walls"));
-        tmpAllPlatforms.addAll(this.allPlatforms.get("Floors"));
-        tmpAllPlatforms.addAll(this.allPlatforms.get("Slopes"));
-        tmpAllPlatforms.addAll(this.allPlatforms.get("Corners"));
-        tmpAllPlatforms.addAll(this.allPlatforms.get("Ceilings"));
-        return tmpAllPlatforms;
+        return allPlatformsList;
     }
     
     public void addPlatform(Platform platform) {
@@ -58,6 +54,13 @@ public class Platforms {
             case "Ceiling":
                 allPlatforms.get("Ceilings").add(platform);
                 break;
+        }
+        allPlatformsList.add(platform);
+    }
+    
+    public void moveAllPlatforms(double deltaX, double deltaY) {
+        for(Platform platform : allPlatformsList) {
+            platform.move(deltaX, deltaY);
         }
     }
 
