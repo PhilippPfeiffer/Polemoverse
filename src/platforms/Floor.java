@@ -108,7 +108,6 @@ public abstract class Floor implements Platform{
         
         for(Shape shape : shapes) {
         shape.relocate(newX, newY);
-        System.out.println(shape.getBoundsInParent().getMinX() + " " +shape.getBoundsInParent().getMinY());
         }
     }
 }

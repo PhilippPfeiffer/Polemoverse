@@ -31,6 +31,6 @@ public interface Platform {
     
     public void addShape(Shape shape);
     public Shape getShape(int index);
-    public void move(double newPosX, double newPostY);
+    public void move(double newPosX, double newPosY);
     
 }

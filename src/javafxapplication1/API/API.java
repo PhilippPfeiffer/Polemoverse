@@ -5,11 +5,13 @@
  */
 package javafxapplication1.API;
 
+import Background.BackgroundObject;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
+import javafxapplication1.Collections.BackgroundObjects;
 import javafxapplication1.Collections.Figures;
 import javafxapplication1.Collections.Platforms;
 import javafxapplication1.entities.Figure;
@@ -24,13 +26,26 @@ public class API {
     
     Figures figures;
     Platforms platforms;
+    ArrayList<BackgroundObjects> backgroundLayers;
     
     public API() {
         figures = new Figures();
         platforms = new Platforms();
+        backgroundLayers = new ArrayList<>();
     }
     
     public Pane addToPane(Pane root) {
+        
+        /**
+         * Add all background shapes to roots
+         */
+        for (BackgroundObjects backgroundObjects : backgroundLayers) {
+            Iterator<BackgroundObject> iter_3 = backgroundObjects.getAllBackgroundObjectsList().iterator();
+            while(iter_3.hasNext()) {
+                BackgroundObject currentBackgroundObject = iter_3.next();
+                root.getChildren().add(currentBackgroundObject.getShape());
+            }
+        }
         
         /**
          * Add all figures to root
@@ -64,6 +79,8 @@ public class API {
             }
         }
         
+        
+        
         return root;
     }
     
@@ -89,6 +106,22 @@ public class API {
     
     public void moveAllFigures() {
         //TODO
+    }
+    
+    public void createBackgroundlayers(int number) {
+        for(int i = 0; i < number; i++) {
+            backgroundLayers.add(new BackgroundObjects(1.0-(1.0/(2.0+i))));
+        }
+    }
+    
+    public void addBackgroundObjectToLayer(int layer, BackgroundObject backgroundObject) {
+        backgroundLayers.get(layer).addBackgroundObject(backgroundObject);
+    }
+    
+    public void moveBackground(double deltaX, double deltaY) {
+        backgroundLayers.stream().forEach((backgroundObjects) -> {
+            backgroundObjects.moveAllBackgroundObjects(deltaX, deltaY);
+        });
     }
     
 }
