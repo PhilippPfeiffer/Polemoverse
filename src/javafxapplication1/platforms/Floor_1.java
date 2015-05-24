@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package platforms;
+package javafxapplication1.platforms;
 
 import javafx.scene.shape.Rectangle;
 

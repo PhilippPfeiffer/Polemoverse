@@ -8,6 +8,7 @@ package javafxapplication1.controls;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseEvent;
 import javafxapplication1.entities.Figure;
 
 /**
@@ -43,6 +44,11 @@ public class CommandHandler {
                 player.setSprinting(false);
             }
         });
+        
+        scene.setOnMouseClicked((MouseEvent event) -> {
+            player.shoot(event.getX(), event.getY());
+        });
+    
         
         return scene;
     }

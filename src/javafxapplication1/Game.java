@@ -5,8 +5,8 @@
  */
 package javafxapplication1;
 
-import Background.BackgroundObject;
-import Background.Tile;
+import javafxapplication1.Background.BackgroundObject;
+import javafxapplication1.Background.Tile;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.beans.property.DoubleProperty;
@@ -19,9 +19,9 @@ import javafx.stage.Stage;
 import javafxapplication1.API.API;
 import javafxapplication1.controls.CommandHandler;
 import javafxapplication1.entities.Player;
-import platforms.Floor_1;
-import platforms.Platform;
-import platforms.Wall_1;
+import javafxapplication1.platforms.Floor_1;
+import javafxapplication1.platforms.Platform;
+import javafxapplication1.platforms.Wall_1;
 
 /**
  *
@@ -93,8 +93,7 @@ public class Game extends Application {
                     final double oldY = player.getPositionY();
                     final double newX = Math.max(minX, Math.min(maxX - player.getWidth(), oldX + deltaX));
                     final double newY = Math.max(minY, Math.min(maxY - player.getHeight(), oldY + deltaY));
-                    api.moveAllPlatforms(-deltaX, 0);
-                    api.moveBackground(-deltaX, 0);
+                    api.moveEverything(-deltaX, 0);
                     player.setPosition(oldX, newY);
                 }
                 lastUpdateTime.set(timestamp);

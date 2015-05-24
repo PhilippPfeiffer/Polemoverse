@@ -12,9 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafxapplication1.API.API;
-import platforms.Platform;
-
-
+import javafxapplication1.platforms.Platform;
 
 /**
  *
@@ -414,8 +412,6 @@ public abstract class Infantry implements Figure{
             
     }
 
-   
-
     @Override
     public double getHeight() {
         return height;
@@ -464,29 +460,27 @@ public abstract class Infantry implements Figure{
         Shape fallBox = shapes.get(3);
         
         for (Platform platform : api.getPlatforms().getAllPlatformsList()) {
-         for (Shape static_bloc : platform.getShapes()) {
-            if (static_bloc != verticalBox) {
-                if (static_bloc.getBoundsInParent().intersects(verticalBox.getBoundsInParent())) {
-                    collisionDetected = true;
-                    String platformType = api.getPlatforms().getAllPlatformsList().get(0).getType();
-                    switch (platformType) {
-                        case "Floor": 
-                            verticalSpeed = 0;
-                            move(0,-0.5);
-                            checkbounds();
-                            setFalling(false);
-                            break;
+            for (Shape static_bloc : platform.getShapes()) {
+                if (static_bloc != verticalBox) {
+                    if (static_bloc.getBoundsInParent().intersects(verticalBox.getBoundsInParent())) {
+                        collisionDetected = true;
+                        String platformType = api.getPlatforms().getAllPlatformsList().get(0).getType();
+                        switch (platformType) {
+                            case "Floor": 
+                                verticalSpeed = 0;
+                                move(0,-0.5);
+                                checkbounds();
+                                setFalling(false);
+                                break;
+                        }
                     }
                 }
-            }
-            if(!static_bloc.getBoundsInParent().intersects(fallBox.getBoundsInParent())){
+                if(!static_bloc.getBoundsInParent().intersects(fallBox.getBoundsInParent())){
                         setFalling(true);
-                    }
-        }   
+                }
+            }   
         }
         
-         
-
         if (collisionDetected) {
             verticalBox.setFill(Color.BLUE);
             setFalling(false);
@@ -590,6 +584,12 @@ public abstract class Infantry implements Figure{
         addState("crouching_firing", "crouching_firing");
         addState("running", "running");
         addState("sprinting", "sprinting");
+    }
+
+    @Override
+    public void shoot(double targetX, double targetY) {
+        double[] startingPos = getPosition();
+        //api.addProjectile(new Bullet_Pistol(9.0, 10.0, 500.0, ));
     }
     
 }

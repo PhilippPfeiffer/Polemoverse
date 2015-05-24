@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package platforms;
+package javafxapplication1.platforms;
 
 import java.util.ArrayList;
 import javafx.scene.shape.Shape;
@@ -12,9 +12,9 @@ import javafx.scene.shape.Shape;
  *
  * @author Philipp
  */
-public abstract class Wall implements Platform{
+public abstract class Floor implements Platform{
     
-    private final String type = "Wall";
+    private final String type = "Floor";
     
     private ArrayList<Shape> shapes = new ArrayList<>();
     private double width;
@@ -99,8 +99,16 @@ public abstract class Wall implements Platform{
     }
 
     @Override
-    public void move(double newPosX, double newPostY) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void move(double deltaX, double deltaY) {
+        
+        double newX = posX + deltaX;
+        double newY = posY + deltaY;
+        setPosX(newX);
+        setPosY(newY);
+        
+        for(Shape shape : shapes) {
+        shape.relocate(newX, newY);
+        }
     }
-    
 }
+    

@@ -9,7 +9,7 @@ import javafx.scene.shape.*;
 import java.util.ArrayList;
 import javafx.scene.Group;
 import javafxapplication1.API.API;
-import platforms.Platform;
+import javafxapplication1.platforms.Platform;
 
 /**
  *
@@ -75,10 +75,10 @@ public interface Figure {
     public void moveLeft();
     
     public void fall();
-    
     public void stop();
-    
     public void jump();
+    
+    public void shoot(double targetX, double targetY);
     
     public void handleCollision(Platform platform);
     

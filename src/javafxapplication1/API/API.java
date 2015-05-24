@@ -5,7 +5,7 @@
  */
 package javafxapplication1.API;
 
-import Background.BackgroundObject;
+import javafxapplication1.Background.BackgroundObject;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javafx.scene.layout.Pane;
@@ -14,8 +14,10 @@ import javafx.scene.shape.Shape;
 import javafxapplication1.Collections.BackgroundObjects;
 import javafxapplication1.Collections.Figures;
 import javafxapplication1.Collections.Platforms;
+import javafxapplication1.Collections.Projectiles;
 import javafxapplication1.entities.Figure;
-import platforms.Platform;
+import javafxapplication1.platforms.Platform;
+import projectiles.Projectile;
 
 
 /**
@@ -27,11 +29,13 @@ public class API {
     Figures figures;
     Platforms platforms;
     ArrayList<BackgroundObjects> backgroundLayers;
+    Projectiles projectiles;
     
     public API() {
         figures = new Figures();
         platforms = new Platforms();
         backgroundLayers = new ArrayList<>();
+        projectiles = new Projectiles();
     }
     
     public Pane addToPane(Pane root) {
@@ -92,6 +96,14 @@ public class API {
         platforms.addPlatform(platform);
     }
     
+    public void addProjectile(Projectile projectile) {
+        projectiles.addProjectile(projectile);
+    }
+    
+    public Projectiles getProjectiles() {
+        return projectiles;
+    }
+    
     public Figures getFigures() {
         return figures;
     }
@@ -104,7 +116,11 @@ public class API {
         platforms.moveAllPlatforms(deltaX, deltaY);
     }
     
-    public void moveAllFigures() {
+    public void moveAllProjectiles(double deltaX, double deltaY) {
+        projectiles.moveAllProjectiles(deltaX, deltaY);
+    }
+    
+    public void moveAllFigures(double deltaX, double deltaY) {
         //TODO
     }
     
@@ -122,6 +138,14 @@ public class API {
         backgroundLayers.stream().forEach((backgroundObjects) -> {
             backgroundObjects.moveAllBackgroundObjects(deltaX, deltaY);
         });
+    }
+    
+    public void moveEverything(double deltaX, double deltaY) {
+        moveAllPlatforms(deltaX, deltaY);
+        moveAllFigures(deltaX, deltaY);
+        moveAllProjectiles(deltaX, deltaY);
+        moveBackground(deltaX, deltaY);
+        
     }
     
 }

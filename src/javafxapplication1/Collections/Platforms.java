@@ -7,7 +7,7 @@ package javafxapplication1.Collections;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import platforms.Platform;
+import javafxapplication1.platforms.Platform;
 
 /**
  *

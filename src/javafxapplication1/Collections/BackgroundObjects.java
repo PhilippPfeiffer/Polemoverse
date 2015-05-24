@@ -5,7 +5,7 @@
  */
 package javafxapplication1.Collections;
 
-import Background.BackgroundObject;
+import javafxapplication1.Background.BackgroundObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
