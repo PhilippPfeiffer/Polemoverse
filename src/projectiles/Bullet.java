@@ -46,8 +46,6 @@ public abstract class Bullet implements Projectile {
     @Override
     public void setVector(double[] vector) {
         this.vector = vector;
-        this.posX = vector[0];
-        this.posY = vector[1];
     }
 
     @Override
@@ -83,6 +81,9 @@ public abstract class Bullet implements Projectile {
     @Override
     public void setPos(double[] pos) {
         this.pos = pos;
+        setPosX(pos[0]);
+        setPosY(pos[1]);
+        updateShapePositions();
     }
 
     @Override
@@ -97,7 +98,8 @@ public abstract class Bullet implements Projectile {
 
     @Override
     public double[] getPos() {
-        return pos;
+        double[] newPos = {getPosX(),getPosY()};
+        return newPos;
     }
 
     @Override
@@ -110,20 +112,16 @@ public abstract class Bullet implements Projectile {
         return type;
     }
     
+    @Override
     public void move(double deltaX, double deltaY) {
         
         double newX = posX + deltaX;
         double newY = posY + deltaY;
-        setPosX(newX);
-        setPosY(newY);
-        double[] pos = {newX, newY};
-        setPos(pos);
+        double[] newPos1 = {newX, newY};
+        setPos(newPos1);
         
-        double[] newPos = projectilePhysics.move(this);
-        
-        for(Shape shape : shapes) {
-        shape.relocate(newX, newY);
-        }
+        double[] newPos2 = projectilePhysics.move(this);
+        setPos(newPos2);
     }
 
     @Override
@@ -142,6 +140,14 @@ public abstract class Bullet implements Projectile {
     }
     
     @Override
+    public void updateShapePositions() {
+        for(Shape shape : shapes) {
+            shape.setTranslateX(getPosX());
+            shape.setTranslateY(getPosY());
+        }
+    }
+    
+    @Override
     public void initializeBoxes() {
         Rectangle a = new Rectangle();
         a.setX(0);
@@ -149,6 +155,8 @@ public abstract class Bullet implements Projectile {
         a.setWidth(10);
         a.setHeight(10);
         a.setOpacity(0.5);
-        a.setFill(Color.YELLOW);
+        a.setFill(Color.RED);
+        
+        addShape(a);
     }
 }

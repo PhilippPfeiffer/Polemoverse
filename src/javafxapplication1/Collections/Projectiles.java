@@ -38,13 +38,13 @@ public class Projectiles {
         String type = projectile.getType();
         switch(type) {
             case "Bullet":
-                allProjectiles.get("Walls").add(projectile);
+                allProjectiles.get("Bullets").add(projectile);
                 break;
             case "Grenades":
-                allProjectiles.get("Floors").add(projectile);
+                allProjectiles.get("Grenades").add(projectile);
                 break;
             case "Bombs":
-                allProjectiles.get("Slopes").add(projectile);
+                allProjectiles.get("Bombs").add(projectile);
                 break;
         }
         allProjectilesList.add(projectile);

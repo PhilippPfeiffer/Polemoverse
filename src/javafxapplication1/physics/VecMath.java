@@ -12,15 +12,38 @@ package javafxapplication1.physics;
 public class VecMath {
     
     public double[] multiplyVec(double[] vector, double scalar) {
-        vector[0] = vector[0] * scalar;
-        vector[1] = vector[1] * scalar;
-        return vector;
+        double[] newVec = {0,0};
+        newVec[0] = vector[0] * scalar;
+        newVec[1] = vector[1] * scalar;
+        return newVec;
     }
     
     public double[] addVec(double[] vector1, double[] vector2) {
-        vector1[0] = vector1[0] + vector2[0];
-        vector1[1] = vector1[1] + vector2[1];
-        return vector1;
+        double[] newVec = {0,0};
+        newVec[0] = vector1[0] + vector2[0];
+        newVec[1] = vector1[1] + vector2[1];
+        return newVec;
+    }
+    
+    public double[] addVec(double[] vector, double scalar) {
+        double[] newVec = {0,0};
+        newVec[0] = vector[0] + scalar;
+        newVec[1] = vector[1] + scalar;
+        return newVec;
+    }
+    
+    public double[] subVec(double[] vector1, double[] vector2) {
+        double[] newVec = {0,0};
+        newVec[0] = vector1[0] - vector2[0];
+        newVec[1] = vector1[1] - vector2[1];
+        return newVec;
+    }
+    
+    public double[] subVec(double[] vector, double scalar) {
+        double[] newVec = {0,0};
+        newVec[0] = vector[0] - scalar;
+        newVec[1] = vector[1] - scalar;
+        return newVec;
     }
     
     public double getDistance(double[] vector1, double[] vector2) {
@@ -29,7 +52,7 @@ public class VecMath {
     
     public double[] getVecToPoint(double[] point1, double[] point2) {
         double x = point2[0] - point1[0];
-        double y = point2[1] - point1[0];
+        double y = point2[1] - point1[1];
         double[] vec = {x,y};
         return vec;
     }

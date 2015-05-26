@@ -39,4 +39,6 @@ public interface Projectile {
     public void addShape(Shape shape);
     
     public void initializeBoxes();
+    
+    public void updateShapePositions();
 }

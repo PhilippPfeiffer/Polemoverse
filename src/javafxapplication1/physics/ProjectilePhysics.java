@@ -21,6 +21,23 @@ public class ProjectilePhysics {
         double[] vector = projectile.getVector();
         double velocity = projectile.getVelocity();
         
+        fall(projectile);
+        
         return vecMath.addVec(pos, vecMath.multiplyVec(vector, velocity));
+    }
+    
+    public double[] getNormalizedVector(double[] startPos, double[] endPos) {
+        double[] vector = vecMath.getVecToPoint(startPos, endPos);
+        return vecMath.normalize(vector);
+    }
+    
+    public double[] getVector(double[] startPos, double[] endPos) {
+        return vecMath.getVecToPoint(startPos, endPos);
+    }
+    
+    public void fall(Projectile projectile) {
+        if(projectile.getVelocity() > 0) {
+            projectile.setVelocity(projectile.getVelocity()-0.5);
+        }
     }
 }

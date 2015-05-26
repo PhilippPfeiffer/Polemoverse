@@ -11,11 +11,12 @@ package projectiles;
  */
 public class Bullet_Pistol extends Bullet{
     
-    public Bullet_Pistol(double caliber, double velocity, double range, double[] pos, double[] vector) {
+    public Bullet_Pistol(double caliber, double velocity, double range, double[] pos, double[] target) {
         setCaliber(caliber);
         setVelocity(velocity);
         setRange(range);
         setPos(pos);
+        double[] vector = projectilePhysics.getNormalizedVector(pos, target);
         setVector(vector);
         
         initializeBoxes();

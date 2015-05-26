@@ -30,15 +30,17 @@ public class API {
     Platforms platforms;
     ArrayList<BackgroundObjects> backgroundLayers;
     Projectiles projectiles;
+    Pane root;
     
-    public API() {
+    public API(Pane root) {
         figures = new Figures();
         platforms = new Platforms();
         backgroundLayers = new ArrayList<>();
         projectiles = new Projectiles();
+        this.root = root;
     }
     
-    public Pane addToPane(Pane root) {
+    public Pane addToPane() {
         
         /**
          * Add all background shapes to roots
@@ -83,6 +85,21 @@ public class API {
             }
         }
         
+        /**
+         * Add all projectiles to root
+         */
+        ArrayList<Projectile> allProjectiles = projectiles.getAllProjectilesList();
+        Iterator<Projectile> iter_3 = allProjectiles.iterator();
+        while(iter_3.hasNext()) {
+            Projectile currentProjectile = iter_3.next();
+            ArrayList<Shape> allShapes = currentProjectile.getShapes();
+            Iterator<Shape> innerIter = allShapes.iterator();
+            while(innerIter.hasNext()) {
+                Shape currentShape = innerIter.next();
+                root.getChildren().add(currentShape);
+            }
+        }
+        
         
         
         return root;
@@ -98,6 +115,16 @@ public class API {
     
     public void addProjectile(Projectile projectile) {
         projectiles.addProjectile(projectile);
+        addShapesToPane(projectile);
+    }
+    
+    public void addShapesToPane(Projectile projectile) {
+        ArrayList<Shape> allShapes = projectile.getShapes();
+        Iterator<Shape> shapeIter = allShapes.iterator();
+        while(shapeIter.hasNext()) {
+            Shape currentShape = shapeIter.next();
+            root.getChildren().add(currentShape);
+        }
     }
     
     public Projectiles getProjectiles() {
@@ -145,7 +172,6 @@ public class API {
         moveAllFigures(deltaX, deltaY);
         moveAllProjectiles(deltaX, deltaY);
         moveBackground(deltaX, deltaY);
-        
     }
     
 }

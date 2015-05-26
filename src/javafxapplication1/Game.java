@@ -22,6 +22,8 @@ import javafxapplication1.entities.Player;
 import javafxapplication1.platforms.Floor_1;
 import javafxapplication1.platforms.Platform;
 import javafxapplication1.platforms.Wall_1;
+import projectiles.Bullet;
+import projectiles.Bullet_Pistol;
 
 /**
  *
@@ -47,7 +49,7 @@ public class Game extends Application {
     final DoubleProperty velocity = new SimpleDoubleProperty();
     final DoubleProperty verticalVelocity = new SimpleDoubleProperty();
     final LongProperty lastUpdateTime = new SimpleLongProperty();
-    final API api = new API();
+    final API api = new API(new Pane());
     
     @Override
     public void start(Stage primaryStage) {
@@ -61,8 +63,7 @@ public class Game extends Application {
         api.addBackgroundObjectToLayer(1, testTile2);
         api.addBackgroundObjectToLayer(2, testTile3);
             
-        Pane root = new Pane();
-        root = api.addToPane(root);
+        Pane root = api.addToPane();
         
         player.setAPI(api);
         

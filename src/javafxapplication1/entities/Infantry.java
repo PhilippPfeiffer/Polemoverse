@@ -13,6 +13,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafxapplication1.API.API;
 import javafxapplication1.platforms.Platform;
+import projectiles.Bullet_Pistol;
 
 /**
  *
@@ -588,8 +589,10 @@ public abstract class Infantry implements Figure{
 
     @Override
     public void shoot(double targetX, double targetY) {
-        double[] startingPos = getPosition();
-        //api.addProjectile(new Bullet_Pistol(9.0, 10.0, 500.0, ));
+        double[] startPos = getPosition();
+        double[] targetPos = {targetX, targetY};
+        api.addProjectile(new Bullet_Pistol(9.0, 20.0, 500.0, startPos, targetPos));
+        
     }
     
 }

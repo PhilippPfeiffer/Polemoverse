@@ -5,18 +5,12 @@
  */
 package javafxapplication1.entities;
 
-import javafx.scene.shape.*;
-import java.util.ArrayList;
-import javafx.scene.paint.Color;
-import javafxapplication1.Game;
-
 /**
  * 
  * @author Philipp
  */
 public class Player extends Infantry {
     
-        
     public Player(double positionX, double positionY) {
         
         setPosition(positionX, positionY);
