@@ -70,4 +70,9 @@ public class VecMath {
         return vec;
     }
     
+    public double dotProduct(double[] vec1, double[] vec2) {
+        double dotProduct = (vec1[0]*vec2[0])+(vec1[1]*vec2[1]);
+        return dotProduct;
+    }
+    
 }
