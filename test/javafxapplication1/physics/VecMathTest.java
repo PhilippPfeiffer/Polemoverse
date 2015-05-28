@@ -5,10 +5,6 @@
  */
 package javafxapplication1.physics;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -29,7 +25,6 @@ public class VecMathTest {
      */
     @Test
     public void testMultiplyVec() {
-        VecMath vecMath = new VecMath();
         
         double vector1[] = {1.0,1.0};
         
@@ -58,7 +53,21 @@ public class VecMathTest {
      */
     @Test
     public void testAddVec_doubleArr_doubleArr() {
+        double vector1[] = {1.0,1.0};
+        double vector2[] = {1.5,-2.0};
         
+        double[] resultVector1 = vecMath.addVec(vector1, vector1);
+        double[] resultVector2 = vecMath.addVec(vector2, vector2);
+        double[] resultVector3 = vecMath.addVec(vector1, vector2);
+        
+        assertEquals("X ", 2.0, resultVector1[0], 0.001);
+        assertEquals("Y ", 2.0, resultVector1[1], 0.001);
+        
+        assertEquals("X ", 3.0, resultVector2[0], 0.001);
+        assertEquals("Y ", -4.0, resultVector2[1], 0.001);
+        
+        assertEquals("X ", 2.5, resultVector3[0], 0.001);
+        assertEquals("Y ", -1.0, resultVector3[1], 0.001);
     }
 
     /**
@@ -66,7 +75,24 @@ public class VecMathTest {
      */
     @Test
     public void testAddVec_doubleArr_double() {
+        double vector1[] = {1.0,1.0};
         
+        double scalar1 = 1.0;
+        double scalar2 = 2.5;
+        double scalar3 = -2.0;
+        
+        double[] resultVector1 = vecMath.addVec(vector1, scalar1);
+        double[] resultVector2 = vecMath.addVec(vector1, scalar2);
+        double[] resultVector3 = vecMath.addVec(vector1, scalar3);
+        
+        assertEquals("X ", 2.0, resultVector1[0], 0.001);
+        assertEquals("Y ", 2.0, resultVector1[1], 0.001);
+        
+        assertEquals("X ", 3.5, resultVector2[0], 0.001);
+        assertEquals("Y ", 3.5, resultVector2[1], 0.001);
+        
+        assertEquals("X ", -1.0, resultVector3[0], 0.001);
+        assertEquals("Y ", -1.0, resultVector3[1], 0.001);
     }
 
     /**
@@ -74,7 +100,21 @@ public class VecMathTest {
      */
     @Test
     public void testSubVec_doubleArr_doubleArr() {
+        double vector1[] = {1.0,1.0};
+        double vector2[] = {1.5,-2.0};
         
+        double[] resultVector1 = vecMath.subVec(vector1, vector1);
+        double[] resultVector2 = vecMath.subVec(vector2, vector2);
+        double[] resultVector3 = vecMath.subVec(vector1, vector2);
+        
+        assertEquals("X ", 0.0, resultVector1[0], 0.001);
+        assertEquals("Y ", 0.0, resultVector1[1], 0.001);
+        
+        assertEquals("X ", 0.0, resultVector2[0], 0.001);
+        assertEquals("Y ", 0.0, resultVector2[1], 0.001);
+        
+        assertEquals("X ", -0.5, resultVector3[0], 0.001);
+        assertEquals("Y ", 3.0, resultVector3[1], 0.001);
     }
 
     /**
@@ -82,7 +122,24 @@ public class VecMathTest {
      */
     @Test
     public void testSubVec_doubleArr_double() {
+        double vector1[] = {1.0,1.0};
         
+        double scalar1 = 1.0;
+        double scalar2 = 2.5;
+        double scalar3 = -2.0;
+        
+        double[] resultVector1 = vecMath.subVec(vector1, scalar1);
+        double[] resultVector2 = vecMath.subVec(vector1, scalar2);
+        double[] resultVector3 = vecMath.subVec(vector1, scalar3);
+        
+        assertEquals("X ", 0.0, resultVector1[0], 0.001);
+        assertEquals("Y ", 0.0, resultVector1[1], 0.001);
+        
+        assertEquals("X ", -1.5, resultVector2[0], 0.001);
+        assertEquals("Y ", -1.5, resultVector2[1], 0.001);
+        
+        assertEquals("X ", 3.0, resultVector3[0], 0.001);
+        assertEquals("Y ", 3.0, resultVector3[1], 0.001);
     }
 
     /**
@@ -90,7 +147,16 @@ public class VecMathTest {
      */
     @Test
     public void testGetDistance() {
+        double vector1[] = {1.0,1.0};
+        double vector2[] = {1.5,-2.0};
         
+        double resultDouble1 = vecMath.getDistance(vector1, vector1);
+        double resultDouble2 = vecMath.getDistance(vector1, vector2);
+        double resultDouble3 = vecMath.getDistance(vector2, vector1);
+        
+        assertEquals("Distance1", 0.0, resultDouble1, 0.001);
+        assertEquals("Distance2", 3.04138, resultDouble2, 0.001);
+        assertEquals("Distance3", 3.04138, resultDouble3, 0.001);
     }
 
     /**
@@ -98,7 +164,21 @@ public class VecMathTest {
      */
     @Test
     public void testGetVecToPoint() {
+        double vector1[] = {1.0,1.0};
+        double vector2[] = {1.5,-2.0};
         
+        double[] resultVector1 = vecMath.getVecToPoint(vector1, vector1);
+        double[] resultVector2 = vecMath.getVecToPoint(vector2, vector1);
+        double[] resultVector3 = vecMath.getVecToPoint(vector1, vector2);
+        
+        assertEquals("X ", 0.0, resultVector1[0], 0.001);
+        assertEquals("Y ", 0.0, resultVector1[1], 0.001);
+        
+        assertEquals("X ", -0.5, resultVector2[0], 0.001);
+        assertEquals("Y ", 3.0, resultVector2[1], 0.001);
+        
+        assertEquals("X ", 0.5, resultVector3[0], 0.001);
+        assertEquals("Y ", -3.0, resultVector3[1], 0.001);
     }
 
     /**
@@ -106,7 +186,14 @@ public class VecMathTest {
      */
     @Test
     public void testGetVecLength() {
+        double vector1[] = {1.0,1.0};
+        double vector2[] = {1.5,-2.0};
         
+        double resultDouble1 = vecMath.getVecLength(vector1);
+        double resultDouble2 = vecMath.getVecLength(vector2);
+        
+        assertEquals("Distance1", 1.414213, resultDouble1, 0.001);
+        assertEquals("Distance2", 2.5, resultDouble2, 0.001);
     }
 
     /**
@@ -114,7 +201,17 @@ public class VecMathTest {
      */
     @Test
     public void testNormalize() {
+        double vector1[] = {1.0,1.0};
+        double vector2[] = {1.5,-2.0};
         
+        double[] resultVector1 = vecMath.normalize(vector1);
+        double[] resultVector2 = vecMath.normalize(vector2);
+        
+        assertEquals("X ", 0.707106, resultVector1[0], 0.001);
+        assertEquals("Y ", 0.707106, resultVector1[1], 0.001);
+        
+        assertEquals("X ", 0.6, resultVector2[0], 0.001);
+        assertEquals("Y ", -0.8, resultVector2[1], 0.001);
     }
 
     /**
@@ -122,7 +219,12 @@ public class VecMathTest {
      */
     @Test
     public void testDotProduct() {
+        double vector1[] = {1.0,1.0};
+        double vector2[] = {1.5,-2.0};
         
+        double resultDouble1 = vecMath.dotProduct(vector1,vector2);
+        
+        assertEquals("Distance1", -0.5, resultDouble1, 0.001);
     }
     
 }
