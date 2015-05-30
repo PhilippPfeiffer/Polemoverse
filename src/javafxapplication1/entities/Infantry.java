@@ -12,6 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafxapplication1.API.API;
+import javafxapplication1.physics.VecMath;
 import javafxapplication1.platforms.Platform;
 import projectiles.Bullet_Pistol;
 
@@ -591,7 +592,22 @@ public abstract class Infantry implements Figure{
     public void shoot(double targetX, double targetY) {
         double[] startPos = getPosition();
         double[] targetPos = {targetX, targetY};
+        VecMath vecMath = new VecMath();
+        double[] vector = vecMath.getVecToPoint(startPos, targetPos);
+        double[] vector1 = vecMath.rotateVec(vector, 5.0);
+        double[] vector2 = vecMath.rotateVec(vector, -5.0);
+        double[] vector3 = vecMath.rotateVec(vector, 10.0);
+        double[] vector4 = vecMath.rotateVec(vector, -10.0);
+        double[] target1 = vecMath.addVec(startPos, vector1);
+        double[] target2 = vecMath.addVec(startPos, vector2);
+        double[] target3 = vecMath.addVec(startPos, vector3);
+        double[] target4 = vecMath.addVec(startPos, vector4);
         api.addProjectile(new Bullet_Pistol(9.0, 20.0, 500.0, startPos, targetPos));
+        api.addProjectile(new Bullet_Pistol(9.0, 20.0, 500.0, startPos, target1));
+        api.addProjectile(new Bullet_Pistol(9.0, 20.0, 500.0, startPos, target2));
+        api.addProjectile(new Bullet_Pistol(9.0, 20.0, 500.0, startPos, target3));
+        api.addProjectile(new Bullet_Pistol(9.0, 20.0, 500.0, startPos, target4));
+        
         
     }
     

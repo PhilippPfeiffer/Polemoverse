@@ -227,4 +227,48 @@ public class VecMathTest {
         assertEquals("Distance1", -0.5, resultDouble1, 0.001);
     }
     
+    /**
+     * Test of rotateVec method, of class VecMath.
+     */
+    @Test
+    public void testRotateVec() {
+        double vector[] = {1.0,1.0};
+        
+        double theta1 = 0;
+        double theta2 = 90;
+        double theta3 = -90;
+        double theta4 = 180;
+        
+        double[] resultVector1 = vecMath.rotateVec(vector, theta1);
+        double[] resultVector2 = vecMath.rotateVec(vector, theta2);
+        double[] resultVector3 = vecMath.rotateVec(vector, theta3);
+        double[] resultVector4 = vecMath.rotateVec(vector, theta4);
+        
+        assertEquals("X", 1.0, resultVector1[0], 0.001);
+        assertEquals("Y", 1.0, resultVector1[1], 0.001);
+        assertEquals("X", -1.0, resultVector2[0], 0.001);
+        assertEquals("Y", 1.0, resultVector2[1], 0.001);
+        assertEquals("X", 1.0, resultVector3[0], 0.001);
+        assertEquals("Y", -1.0, resultVector3[1], 0.001);
+        assertEquals("X", -1.0, resultVector4[0], 0.001);
+        assertEquals("Y", -1.0, resultVector4[1], 0.001);
+    }
+    
+    /**
+     * Test of getAngle method, of class VecMath.
+     */
+    @Test
+    public void testGetAngle() {
+        double vector1[] = {3.0,3.0};
+        double vector2[] = {1.0,-1.0};
+        double vector3[] = {-1.0,-1.0};
+        
+        double resultDouble1 = vecMath.getAngle(vector1, vector2);
+        double resultDouble2 = vecMath.getAngle(vector1, vector3);
+        double resultDouble3 = vecMath.getAngle(vector2, vector3);
+        
+        assertEquals("Angle1", 270.0, resultDouble1, 0.001);
+        assertEquals("Angle2", 180.0, resultDouble2, 0.001);
+        assertEquals("Angle3", 270.0, resultDouble3, 0.001);
+    }    
 }

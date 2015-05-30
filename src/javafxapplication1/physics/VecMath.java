@@ -56,7 +56,7 @@ public class VecMath {
         double[] vec = {x,y};
         return vec;
     }
-    
+        
     public double getVecLength(double[] vec) {
         return Math.sqrt(Math.pow(vec[0], 2.0)+Math.pow(vec[1], 2.0));
     }
@@ -73,6 +73,23 @@ public class VecMath {
     public double dotProduct(double[] vec1, double[] vec2) {
         double dotProduct = (vec1[0]*vec2[0])+(vec1[1]*vec2[1]);
         return dotProduct;
+    }
+    
+    public double[] rotateVec(double[] vec, double degrees) {
+        double theta = Math.toRadians(degrees);
+        double[] rotatedVec = {Math.cos(theta)*vec[0]-Math.sin(theta)*vec[1], Math.sin(theta)*vec[0]+Math.cos(theta)*vec[1]};
+        return rotatedVec;
+    }
+    
+    public double getAngle(double[] vec1, double[] vec2) {
+        double theta1 = Math.atan2(vec1[0], vec1[1]);
+        double theta2 = Math.atan2(vec2[0], vec2[1]);
+        double theta = theta1 - theta2;
+        theta = Math.toDegrees(theta);
+        if(theta < 0) {
+            theta = 360.0 + theta;
+        }
+        return theta;
     }
     
 }
