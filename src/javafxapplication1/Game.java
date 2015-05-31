@@ -24,6 +24,7 @@ import javafxapplication1.platforms.Platform;
 import javafxapplication1.platforms.Wall_1;
 import projectiles.Bullet;
 import projectiles.Bullet_Pistol;
+import weapons.Pistol;
 
 /**
  *
@@ -66,6 +67,7 @@ public class Game extends Application {
         Pane root = api.addToPane();
         
         player.setAPI(api);
+        player.addWeapon(new Pistol(getAPI(),10,5.0, 0.5,5.0,1,30.0,1000, 9.0));
         
         Scene scene = new Scene(root, maxX, maxY);
         
