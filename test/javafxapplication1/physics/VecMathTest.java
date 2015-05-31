@@ -270,5 +270,5 @@ public class VecMathTest {
         assertEquals("Angle1", 270.0, resultDouble1, 0.001);
         assertEquals("Angle2", 180.0, resultDouble2, 0.001);
         assertEquals("Angle3", 270.0, resultDouble3, 0.001);
-    }    
+    }  
 }

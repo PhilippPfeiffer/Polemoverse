@@ -15,6 +15,7 @@ import javafxapplication1.API.API;
 import javafxapplication1.physics.VecMath;
 import javafxapplication1.platforms.Platform;
 import projectiles.Bullet_Pistol;
+import weapons.Weapon;
 
 /**
  *
@@ -57,6 +58,27 @@ public abstract class Infantry implements Figure{
     
     private API api;
    
+    private ArrayList<Weapon> weapons = new ArrayList<>();
+    
+    @Override
+    public void addWeapon(Weapon weapon) {
+        weapons.add(weapon);
+    }
+    
+    @Override
+    public Weapon getWeapon(int index) {
+        return weapons.get(index);
+    }
+    
+    @Override
+    public ArrayList<Weapon> getWeapons() {
+        return weapons;
+    }
+    
+    @Override
+    public void setWeapons(ArrayList<Weapon> weapons) {
+        this.weapons = weapons;
+    }
     
     @Override
     public void move(double x, double y, double speed, double velocity) {
@@ -491,6 +513,11 @@ public abstract class Infantry implements Figure{
         }
         
     }
+    
+    @Override
+    public API getAPI() {
+        return api;
+    }
 
     @Override
     public void setAPI(API api) {
@@ -592,23 +619,8 @@ public abstract class Infantry implements Figure{
     public void shoot(double targetX, double targetY) {
         double[] startPos = getPosition();
         double[] targetPos = {targetX, targetY};
-        VecMath vecMath = new VecMath();
-        double[] vector = vecMath.getVecToPoint(startPos, targetPos);
-        double[] vector1 = vecMath.rotateVec(vector, 5.0);
-        double[] vector2 = vecMath.rotateVec(vector, -5.0);
-        double[] vector3 = vecMath.rotateVec(vector, 10.0);
-        double[] vector4 = vecMath.rotateVec(vector, -10.0);
-        double[] target1 = vecMath.addVec(startPos, vector1);
-        double[] target2 = vecMath.addVec(startPos, vector2);
-        double[] target3 = vecMath.addVec(startPos, vector3);
-        double[] target4 = vecMath.addVec(startPos, vector4);
-        api.addProjectile(new Bullet_Pistol(9.0, 20.0, 500.0, startPos, targetPos));
-        api.addProjectile(new Bullet_Pistol(9.0, 20.0, 500.0, startPos, target1));
-        api.addProjectile(new Bullet_Pistol(9.0, 20.0, 500.0, startPos, target2));
-        api.addProjectile(new Bullet_Pistol(9.0, 20.0, 500.0, startPos, target3));
-        api.addProjectile(new Bullet_Pistol(9.0, 20.0, 500.0, startPos, target4));
-        
-        
+        getWeapon(0).fire(startPos, targetPos);
+  
     }
-    
+ 
 }

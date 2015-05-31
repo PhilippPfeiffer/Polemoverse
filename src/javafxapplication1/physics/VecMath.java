@@ -5,6 +5,8 @@
  */
 package javafxapplication1.physics;
 
+import java.util.Random;
+
 /**
  *
  * @author Philipp
@@ -90,6 +92,15 @@ public class VecMath {
             theta = 360.0 + theta;
         }
         return theta;
+    }
+    
+    public double randomizeAngle(double interval) {
+        double rangeMin = -interval/2;
+        double rangeMax = interval/2;
+        Random random = new Random();
+        double randomValue = rangeMin + (rangeMax - rangeMin) * random.nextDouble();
+        System.out.println(randomValue);
+        return randomValue;
     }
     
 }

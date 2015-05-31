@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javafx.scene.Group;
 import javafxapplication1.API.API;
 import javafxapplication1.platforms.Platform;
+import weapons.Weapon;
 
 /**
  *
@@ -42,6 +43,8 @@ public interface Figure {
     public boolean getSprinting();
     public double getHeight();
     public double getWidth();
+    public Weapon getWeapon(int index);
+    public ArrayList<Weapon> getWeapons();
     
     public void setState(String state);
     public void setPosition(double[] position);
@@ -67,6 +70,9 @@ public interface Figure {
     public void setSprinting(boolean sprinting);
     public void setHeight(double height);
     public void setWidth(double width);
+    public void addWeapon(Weapon weapon);
+    public void setWeapons(ArrayList<Weapon> weapons);
+    
     
     public void increaseSpeed();
     public void decreaseSpeed();
@@ -82,6 +88,7 @@ public interface Figure {
     
     public void handleCollision(Platform platform);
     
+    public API getAPI();
     public void setAPI(API api);
     
     public void updateShapePositions();

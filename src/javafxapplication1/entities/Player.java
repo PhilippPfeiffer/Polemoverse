@@ -5,6 +5,8 @@
  */
 package javafxapplication1.entities;
 
+import weapons.Pistol;
+
 /**
  * 
  * @author Philipp
@@ -12,7 +14,7 @@ package javafxapplication1.entities;
 public class Player extends Infantry {
     
     public Player(double positionX, double positionY) {
-        
+                
         setPosition(positionX, positionY);
         
         setWidth(150);
