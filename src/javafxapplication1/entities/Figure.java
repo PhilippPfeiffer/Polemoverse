@@ -1,13 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package javafxapplication1.entities;
 
 import javafx.scene.shape.*;
 import java.util.ArrayList;
-import javafx.scene.Group;
 import javafxapplication1.API.API;
 import javafxapplication1.platforms.Platform;
 import weapons.Weapon;

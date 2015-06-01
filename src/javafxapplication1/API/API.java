@@ -1,15 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package javafxapplication1.API;
 
 import javafxapplication1.Background.BackgroundObject;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
 import javafxapplication1.Collections.BackgroundObjects;
 import javafxapplication1.Collections.Figures;

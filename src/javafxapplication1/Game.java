@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package javafxapplication1;
 
 import javafxapplication1.Background.BackgroundObject;
@@ -22,8 +18,6 @@ import javafxapplication1.entities.Player;
 import javafxapplication1.platforms.Floor_1;
 import javafxapplication1.platforms.Platform;
 import javafxapplication1.platforms.Wall_1;
-import projectiles.Bullet;
-import projectiles.Bullet_Pistol;
 import weapons.Pistol;
 
 /**
