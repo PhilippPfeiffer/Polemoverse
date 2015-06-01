@@ -7,6 +7,8 @@ package projectiles;
 
 import java.util.ArrayList;
 import javafx.scene.shape.Shape;
+import javafxapplication1.physics.ProjectilePhysics;
+import javafxapplication1.physics.VecMath;
 
 /**
  *
@@ -23,6 +25,9 @@ public interface Projectile {
     public void setPos(double[] pos);
     public void setType(String type);
     public void setShapes(ArrayList<Shape> shapes);
+    public void setProjectilePhysics(ProjectilePhysics projectilePhysics);
+    public void setVecNotNormalized(double[] vecNotNormalized);
+    public void setVecMath(VecMath vecMath);
     
     public double getCaliber();
     public double getVelocity();
@@ -33,6 +38,9 @@ public interface Projectile {
     public double[] getPos(); 
     public String getType();
     public ArrayList<Shape> getShapes();
+    public ProjectilePhysics getProjectilePhysics();
+    public double[] getVecNotNormalized();
+    public VecMath getVecMath();
     
     public void move(double deltaX, double deltaY);
     

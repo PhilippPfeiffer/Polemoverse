@@ -10,6 +10,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafxapplication1.physics.ProjectilePhysics;
+import javafxapplication1.physics.VecMath;
 
 /**
  *
@@ -21,13 +22,43 @@ public abstract class Bullet implements Projectile {
     private double velocity = 0.0;
     private double range = 0.0;
     private double[] vector = {0.0,0.0};
-    private double posX = 0.0;
-    private double posY = 0.0;
     private double[] pos = {0.0,0.0};
     private String type = "Bullet";
     private ArrayList<Shape> shapes = new ArrayList<>();
-    ProjectilePhysics projectilePhysics = new ProjectilePhysics();
+    private ProjectilePhysics projectilePhysics = new ProjectilePhysics();
+    private VecMath vecMath = new VecMath();
+    private double[] vecNotNormalized = {0.0,0.0};
 
+    @Override
+    public ProjectilePhysics getProjectilePhysics() {
+        return projectilePhysics;
+    }
+
+    @Override
+    public void setProjectilePhysics(ProjectilePhysics projectilePhysics) {
+        this.projectilePhysics = projectilePhysics;
+    }
+
+    @Override
+    public double[] getVecNotNormalized() {
+        return vecNotNormalized;
+    }
+
+    @Override
+    public void setVecNotNormalized(double[] vecNotNormalized) {
+        this.vecNotNormalized = vecNotNormalized;
+    }
+
+    @Override
+    public VecMath getVecMath() {
+        return vecMath;
+    }
+
+    @Override
+    public void setVecMath(VecMath vecMath) {
+        this.vecMath = vecMath;
+    }
+    
     @Override
     public void setCaliber(double caliber) {
         this.caliber = caliber;
@@ -70,12 +101,12 @@ public abstract class Bullet implements Projectile {
 
     @Override
     public void setPosX(double posX) {
-        this.posX = posX;
+        this.pos[0] = posX;
     }
 
     @Override
     public void setPosY(double posY) {
-        this.posY = posY;
+        this.pos[1] = posY;
     }
 
     @Override
@@ -88,12 +119,12 @@ public abstract class Bullet implements Projectile {
 
     @Override
     public double getPosX() {
-        return posX;
+        return pos[0];
     }
 
     @Override
     public double getPosY() {
-        return posY;
+        return pos[1];
     }
 
     @Override
@@ -115,8 +146,8 @@ public abstract class Bullet implements Projectile {
     @Override
     public void move(double deltaX, double deltaY) {
         
-        double newX = posX + deltaX;
-        double newY = posY + deltaY;
+        double newX = pos[0] + deltaX;
+        double newY = pos[1] + deltaY;
         double[] newPos1 = {newX, newY};
         setPos(newPos1);
         

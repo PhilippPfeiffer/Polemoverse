@@ -17,13 +17,14 @@ public class ProjectilePhysics {
     
     public double[] move(Projectile projectile) {
         
-        double[] pos = projectile.getPos();
-        double[] vector = projectile.getVector();
-        double velocity = projectile.getVelocity();
-        
         fall(projectile);
         
-        return vecMath.addVec(pos, vecMath.multiplyVec(vector, velocity));
+        double[] pos = projectile.getPos();
+        double[] vector = projectile.getVector();
+        double[] vecNotNormalized = projectile.getVecNotNormalized();
+        double velocity = projectile.getVelocity();
+        
+        return vecMath.addVec(pos, vecNotNormalized);
     }
     
     public double[] getNormalizedVector(double[] startPos, double[] endPos) {
@@ -36,8 +37,15 @@ public class ProjectilePhysics {
     }
     
     public void fall(Projectile projectile) {
+        double[] movementVec = projectile.getVecNotNormalized();
         if(projectile.getVelocity() > 0) {
-            projectile.setVelocity(projectile.getVelocity()-0.5);
+            if(movementVec[0] > 0.0) {
+                movementVec[0] -= 0.1;
+            } else {
+                movementVec[0] += 0.1;
+            }
         }
+        movementVec[1] += 0.3;
+        projectile.setVecNotNormalized(movementVec);
     }
 }
