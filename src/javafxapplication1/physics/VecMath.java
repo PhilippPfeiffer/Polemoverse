@@ -1,7 +1,11 @@
 
 package javafxapplication1.physics;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 
 /**
  *
@@ -185,7 +189,7 @@ public class VecMath {
      * @param line2
      * @return double[] point if intersection occurs. Null if not.
      */
-    public double[] intersectLines(Line line1, Line line2) {
+    public double[] intersectLines(PolygonLine line1, PolygonLine line2) {
         
         double A_X = line1.getPointA()[0];
         double A_Y = line1.getPointA()[1];
@@ -204,6 +208,36 @@ public class VecMath {
         
         double[] point = {xi, yi};
         return point;
+    }
+    
+    public Shape buildBoundingBox(double[] pos, ArrayList<PolygonLine> lines) {
+        Rectangle a = new Rectangle();
+        ArrayList<Double> xValues = new ArrayList<>();
+        ArrayList<Double> yValues = new ArrayList<>();
+        
+        for(PolygonLine currentLine : lines) {
+            xValues.add(currentLine.getPointA_X());
+            xValues.add(currentLine.getPointB_X());
+            yValues.add(currentLine.getPointA_Y());
+            yValues.add(currentLine.getPointB_Y());
+        }
+        
+        if(xValues.size()<1||yValues.size()<2) {
+            a.setX(pos[0]);
+            a.setY(pos[1]);
+            a.setWidth(0);
+            a.setHeight(0);
+        } else {
+            Collections.sort(xValues);
+            Collections.sort(yValues);
+            a.setX(pos[0]);
+            a.setY(pos[1]);
+            a.setWidth(xValues.get(xValues.size()-1) - xValues.get(0));
+            a.setHeight(yValues.get(yValues.size()-1) - yValues.get(0));
+            a.setOpacity(0.5);
+        }
+        
+        return a;
     }
     
 }

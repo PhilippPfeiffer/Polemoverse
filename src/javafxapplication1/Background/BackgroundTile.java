@@ -19,7 +19,6 @@ public abstract class BackgroundTile implements BackgroundObject {
         pos[0] = pos[0] + deltaX * movementModifier;
         pos[1] = pos[1] + deltaY * movementModifier;
         shape.relocate(pos[0] + deltaY, pos[1] + deltaY);
-
     }
 
     @Override

@@ -9,8 +9,10 @@ import javafx.scene.shape.Shape;
 import javafxapplication1.Collections.BackgroundObjects;
 import javafxapplication1.Collections.Figures;
 import javafxapplication1.Collections.Platforms;
+import javafxapplication1.Collections.Polygons;
 import javafxapplication1.Collections.Projectiles;
 import javafxapplication1.entities.Figure;
+import javafxapplication1.physics.Polygon;
 import javafxapplication1.platforms.Platform;
 import projectiles.Projectile;
 
@@ -25,6 +27,7 @@ public class API {
     Platforms platforms;
     ArrayList<BackgroundObjects> backgroundLayers;
     Projectiles projectiles;
+    Polygons polygons;
     Pane root;
     
     public API(Pane root) {
@@ -32,6 +35,7 @@ public class API {
         platforms = new Platforms();
         backgroundLayers = new ArrayList<>();
         projectiles = new Projectiles();
+        polygons = new Polygons();
         this.root = root;
     }
     
@@ -95,9 +99,26 @@ public class API {
             }
         }
         
-        
+        /**
+         * Add all polygons to root
+         */
+        ArrayList<Polygon> allPolygons = polygons.getAllPolygonsList();
+        Iterator<Polygon> iter_4 = allPolygons.iterator();
+        while(iter_4.hasNext()) {
+            Polygon currentPolygon = iter_4.next();
+            ArrayList<Shape> allShapes = currentPolygon.getShapes();
+            Iterator<Shape> innerIter = allShapes.iterator();
+            while(innerIter.hasNext()) {
+                Shape currentShape = innerIter.next();
+                root.getChildren().add(currentShape);
+            }
+        }
         
         return root;
+    }
+    
+    public void addPolygon(Polygon polygon) {
+        polygons.addPolygon(polygon);
     }
     
     public void addFigure(Figure figure) {
@@ -134,6 +155,10 @@ public class API {
         return platforms;
     }
     
+    public Polygons getPolygons() {
+        return polygons;
+    }
+    
     public void moveAllPlatforms(double deltaX, double deltaY) {
         platforms.moveAllPlatforms(deltaX, deltaY);
     }
@@ -144,6 +169,10 @@ public class API {
     
     public void moveAllFigures(double deltaX, double deltaY) {
         //TODO
+    }
+    
+    public void moveAllPolygons(double deltaX, double deltaY) {
+        polygons.moveAllPolygons(deltaX, deltaY);
     }
     
     public void createBackgroundlayers(int number) {
@@ -166,6 +195,7 @@ public class API {
         moveAllPlatforms(deltaX, deltaY);
         moveAllFigures(deltaX, deltaY);
         moveAllProjectiles(deltaX, deltaY);
+        moveAllPolygons(deltaX, deltaY);
         moveBackground(deltaX, deltaY);
     }
     

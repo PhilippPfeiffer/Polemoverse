@@ -47,9 +47,9 @@ public class Projectiles {
     }
     
     public void moveAllProjectiles(double deltaX, double deltaY) {
-        for(Projectile projectile : allProjectilesList) {
+        allProjectilesList.stream().forEach((projectile) -> {
             projectile.move(deltaX, deltaY);
-        }
+        });
     }
     
 }
