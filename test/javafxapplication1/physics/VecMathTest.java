@@ -267,4 +267,46 @@ public class VecMathTest {
         assertEquals("Angle2", 180.0, resultDouble2, 0.001);
         assertEquals("Angle3", 270.0, resultDouble3, 0.001);
     }  
+    
+    /**
+     * Test for intersectLines method of clas VecMath.
+     */
+    @Test
+    public void testIntersectLines() {
+        double[] startPos1 = {0.0,0.0};
+        double[] startPos2 = {0.25,0.25};
+        double[] startPos3 = {5.0,5.0};
+        
+        double[] point1 = {0.0,0.0};
+        double[] point2 = {0.0,10.0};
+        double[] point3 = {10.0,0.0};
+        double[] point4 = {10.0,10.0};
+        double[] point5 = {13.324,14.324};
+        
+        PolygonLine line1 = new PolygonLine(startPos1, point4, point1);
+        PolygonLine line2 = new PolygonLine(startPos1, point3, point2);
+        
+        PolygonLine line3 = new PolygonLine(startPos2, point1, point2);
+        PolygonLine line4 = new PolygonLine(startPos3, point1, point2);
+        
+        PolygonLine line5 = new PolygonLine(startPos3, point1, point2);
+        PolygonLine line6 = new PolygonLine(startPos3, point1, point2);
+        
+        PolygonLine line7 = new PolygonLine(startPos1, point5, point1);
+        
+        double[] result1 = vecMath.intersectLines(line1, line2);
+        double[] result2 = vecMath.intersectLines(line3, line4);
+        double[] result3 = vecMath.intersectLines(line5, line6);
+        double[] result4 = vecMath.intersectLines(line7, line2);
+        
+        assertEquals("Intersection1_X", 5.0, result1[0], 0.001);
+        assertEquals("Intersection1_Y", 5.0, result1[1], 0.001);
+        
+        assertNull("Intersection2", result2);
+        
+        assertNull("Intersection3", result3);
+        
+        assertEquals("Intersection1_X", 4.819155092592593, result4[0], 0.001);
+        assertEquals("Intersection1_Y", 5.180844907407407, result4[1], 0.001);
+    }
 }
