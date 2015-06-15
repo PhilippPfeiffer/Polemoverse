@@ -15,11 +15,15 @@ public class PolygonLine {
     VecMath vecMath = new VecMath();
     private double[] pointA;
     private double[] pointB;
+    private double[] relativePointA;
+    private double[] relativePointB;
     Line line = new Line();
     
     public PolygonLine(double[] pos, double[] pointA, double[] pointB) {
         this.pointA = vecMath.addVec(pos, pointA);
         this.pointB = vecMath.addVec(pos, pointB);
+        this.relativePointA = pointA;
+        this.relativePointB = pointB;
         Line newLine = new Line();
         newLine.setStartX(pointA[0] + pos[0]);
         newLine.setStartY(pointA[1] + pos[1]);
@@ -31,6 +35,22 @@ public class PolygonLine {
         this.line = newLine;
     }
 
+    public double[] getRelativePointA() {
+        return relativePointA;
+    }
+
+    public void setRelativePointA(double[] relativePointA) {
+        this.relativePointA = relativePointA;
+    }
+
+    public double[] getRelativePointB() {
+        return relativePointB;
+    }
+
+    public void setRelativePointB(double[] relativePointB) {
+        this.relativePointB = relativePointB;
+    }
+    
     public double[] getPointA() {
         return pointA;
     }
@@ -85,6 +105,14 @@ public class PolygonLine {
     
     public double getPointB_Y() {
         return pointB[1];
+    }
+    
+    public void setLine(Line line) {
+        this.line = line;
+    }
+    
+    public Line getLine() {
+        return line;
     }
     
     public void move(double deltaX, double deltaY) {

@@ -3,8 +3,10 @@ package projectiles;
 
 import java.util.ArrayList;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
+import javafx.scene.shape.StrokeLineCap;
 import javafxapplication1.physics.ProjectilePhysics;
 import javafxapplication1.physics.VecMath;
 
@@ -21,9 +23,10 @@ public abstract class Bullet implements Projectile {
     private double[] pos = {0.0,0.0};
     private String type = "Bullet";
     private ArrayList<Shape> shapes = new ArrayList<>();
-    private ProjectilePhysics projectilePhysics = new ProjectilePhysics();
+    ProjectilePhysics projectilePhysics;
     private VecMath vecMath = new VecMath();
     private double[] vecNotNormalized = {0.0,0.0};
+    Line line;
 
     @Override
     public ProjectilePhysics getProjectilePhysics() {
@@ -167,6 +170,15 @@ public abstract class Bullet implements Projectile {
     }
     
     @Override
+    public void updateLine(double[] oldPos, double[] newPos) {
+        line.setStartX(0.0);
+        line.setStartY(0.0);
+        line.setEndX(newPos[0]-oldPos[0]);
+        line.setEndY(newPos[1]-oldPos[1]);
+        
+    }
+    
+    @Override
     public void updateShapePositions() {
         for(Shape shape : shapes) {
             shape.setTranslateX(getPosX());
@@ -185,5 +197,27 @@ public abstract class Bullet implements Projectile {
         a.setFill(Color.RED);
         
         addShape(a);
+        
+        Line newLine = new Line();
+        newLine.setStartX(0.0);
+        newLine.setStartY(0.0);
+        newLine.setEndX(0.0);
+        newLine.setEndY(0.0);
+        newLine.setStrokeLineCap(StrokeLineCap.ROUND);
+        newLine.setStroke(Color.MIDNIGHTBLUE);
+        newLine.setStrokeWidth(5);
+        this.line = newLine;
+        
+        addShape(newLine);
+    }
+
+    @Override
+    public void setLine(Line line) {
+        this.line = line;
+    }
+
+    @Override
+    public Line getLine() {
+        return line;
     }
 }

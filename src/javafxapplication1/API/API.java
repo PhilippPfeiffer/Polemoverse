@@ -121,6 +121,11 @@ public class API {
         polygons.addPolygon(polygon);
     }
     
+    public void addPolygonLive(Polygon polygon) {
+        polygons.addPolygon(polygon);
+        addShapesToPane(polygon);
+    }
+    
     public void addFigure(Figure figure) {
         figures.addFigure(figure);
     }
@@ -132,6 +137,15 @@ public class API {
     public void addProjectile(Projectile projectile) {
         projectiles.addProjectile(projectile);
         addShapesToPane(projectile);
+    }
+    
+    public void addShapesToPane(Polygon polygon) {
+        ArrayList<Shape> allShapes = polygon.getShapes();
+        Iterator<Shape> shapeIter = allShapes.iterator();
+        while(shapeIter.hasNext()) {
+            Shape currentShape = shapeIter.next();
+            root.getChildren().add(currentShape);
+        }
     }
     
     public void addShapesToPane(Projectile projectile) {

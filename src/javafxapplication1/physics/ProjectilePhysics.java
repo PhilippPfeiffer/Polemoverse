@@ -1,6 +1,10 @@
 
 package javafxapplication1.physics;
 
+import java.util.ArrayList;
+import javafx.scene.shape.Line;
+import javafxapplication1.API.API;
+import javafxapplication1.Collections.Polygons;
 import projectiles.Projectile;
 
 /**
@@ -10,6 +14,11 @@ import projectiles.Projectile;
 public class ProjectilePhysics {
     
     private final VecMath vecMath = new VecMath();
+    private final API api;
+    
+    public ProjectilePhysics(API api) {
+        this.api = api;
+    }
     
     public double[] move(Projectile projectile) {
         
@@ -19,6 +28,12 @@ public class ProjectilePhysics {
         double[] vector = projectile.getVector();
         double[] vecNotNormalized = projectile.getVecNotNormalized();
         double velocity = projectile.getVelocity();
+        
+        double[] newPos = vecMath.addVec(pos, vecNotNormalized);
+        
+        projectile.updateLine(pos, newPos);
+                
+        checkCollision(projectile, pos, newPos);
         
         return vecMath.addVec(pos, vecNotNormalized);
     }
@@ -43,5 +58,24 @@ public class ProjectilePhysics {
         }
         movementVec[1] += 0.3;
         projectile.setVecNotNormalized(movementVec);
+    }
+    
+    public void checkCollision(Projectile projectile, double[] oldPos, double[] newPos) {
+        for(Polygon polygon : api.getPolygons().getAllPolygonsList()) {
+            if(projectile.getLine().getBoundsInParent().intersects(polygon.getBoundingBox().getBoundsInParent())) {
+                ArrayList<PolygonLine> polygonLines = polygon.getPolygonLines();
+                ArrayList<double[]> intersections = new ArrayList<>();
+                for(PolygonLine polygonLine : polygonLines) {
+                    double[] point = vecMath.intersectLines(oldPos, newPos, polygonLine.getLine());
+                    if(point == null) {
+                        System.out.println("missed");
+                    }
+                    if(point != null) {
+                        System.out.println(point[0] + "," + point[1]);
+                    }
+                }
+            }
+        }
+        
     }
 }

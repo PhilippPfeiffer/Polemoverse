@@ -2,6 +2,7 @@
 package weapons;
 
 import javafxapplication1.API.API;
+import javafxapplication1.physics.ProjectilePhysics;
 
 /**
  *
@@ -11,7 +12,7 @@ public class Pistol extends InfantryWeapon {
     
     public Pistol(API api, int magazineSize, double reloadTime, double fireRate, 
                   double spread, int projectiles, double firingVelocity, 
-                  double range, double caliber) {
+                  double range, double caliber, ProjectilePhysics projectilePhysics) {
         setMagazineSize(magazineSize);
         setReloadTime(reloadTime);
         setFireRate(fireRate);
@@ -22,5 +23,6 @@ public class Pistol extends InfantryWeapon {
         setReady(true);
         setAPI(api);
         setCaliber(caliber);
+        this.projectilePhysics = projectilePhysics;
     }
 }

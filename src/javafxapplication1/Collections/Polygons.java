@@ -28,7 +28,6 @@ public class Polygons {
     }
     
     public void moveAllPolygons(double deltaX, double deltaY) {
-        System.out.println(allPolygonsList.get(0).getBoundingBox().getBoundsInParent());
         allPolygonsList.stream().forEach((polygon) -> {
             polygon.move(deltaX, deltaY);
         });

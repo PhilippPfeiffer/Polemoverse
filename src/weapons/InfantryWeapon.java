@@ -23,7 +23,7 @@ public abstract class InfantryWeapon implements Weapon {
     private double caliber = 0.0;
     private double firingVelocity = 0.0;
     private double range = 0.0;
-    ProjectilePhysics projectilePhysics = new ProjectilePhysics();
+    ProjectilePhysics projectilePhysics;
     VecMath vecMath = new VecMath();
     boolean ready = false;
     ArrayList<Projectile> projectileTypes = new ArrayList<>();
@@ -136,7 +136,7 @@ public abstract class InfantryWeapon implements Weapon {
             vector = vecMath.rotateVec(vector, vecMath.randomizeAngle(getSpread()));
             double[] target1 = vecMath.addVec(startPos, vector);
             
-            api.addProjectile(new Bullet_Pistol(getCaliber(), getFiringVelocity(), getRange(), startPos, target1));
+            api.addProjectile(new Bullet_Pistol(getCaliber(), getFiringVelocity(), getRange(), startPos, target1, projectilePhysics));
         }
         
     }

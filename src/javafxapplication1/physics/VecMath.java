@@ -4,6 +4,7 @@ package javafxapplication1.physics;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
@@ -189,22 +190,50 @@ public class VecMath {
      * @param line2
      * @return double[] point if intersection occurs. Null if not.
      */
+    public double[] intersectLines(double[] line1Start, double[] line1End, Line line2) {
+                
+        double x1 = line1Start[0];
+        double y1 = line1Start[1];
+        double x2 = line1End[0];
+        double y2 = line1End[1];
+        double x3 = line2.getStartX();
+        double y3 = line2.getStartY();
+        double x4 = line2.getEndX();
+        double y4 = line2.getEndY();
+        
+        double d = (x1-x2)*(y3-y4) - (y1-y2)*(x3-x4);
+        if (d == 0) return null;
+    
+        double xi = ((x3-x4)*(x1*y2-y1*x2)-(x1-x2)*(x3*y4-y3*x4))/d;
+        double yi = ((y3-y4)*(x1*y2-y1*x2)-(y1-y2)*(x3*y4-y3*x4))/d;
+        
+        double[] point = {xi, yi};
+        return point;
+    }
+    
+    /**
+     * Intersects two lines and returns the point at which they intersect, if
+     * they intersect. Returns null, if there is no intersction
+     * @param line1
+     * @param line2
+     * @return double[] point if intersection occurs. Null if not.
+     */
     public double[] intersectLines(PolygonLine line1, PolygonLine line2) {
         
-        double A_X = line1.getPointA()[0];
-        double A_Y = line1.getPointA()[1];
-        double B_X = line1.getPointB()[0];
-        double B_Y = line1.getPointB()[1];
-        double C_X = line2.getPointA()[0];
-        double C_Y = line2.getPointA()[1];
-        double D_X = line2.getPointB()[0];
-        double D_Y = line2.getPointB()[1];
+        double x1 = line1.getPointA()[0];
+        double y1 = line1.getPointA()[1];
+        double x2 = line1.getPointB()[0];
+        double y2 = line1.getPointB()[1];
+        double x3 = line2.getPointA()[0];
+        double y3 = line2.getPointA()[1];
+        double x4 = line2.getPointB()[0];
+        double y4 = line2.getPointB()[1];
         
-        double d = (A_X-B_X)*(C_Y-D_Y) - (A_Y-B_Y)*(C_X-D_Y);
+        double d = (x1-x2)*(y3-y4) - (y1-y2)*(x3-x4);
         if (d == 0) return null;
-        
-        double xi = ((C_X-D_X)*(A_X*B_Y-A_Y*B_X)-(A_X-B_X)*(C_X*D_Y-C_Y*D_X))/d;
-        double yi = ((C_Y-D_Y)*(A_X*B_Y-A_Y*B_X)-(A_Y-B_Y)*(C_X*D_Y-C_Y*D_X))/d;
+    
+        double xi = ((x3-x4)*(x1*y2-y1*x2)-(x1-x2)*(x3*y4-y3*x4))/d;
+        double yi = ((y3-y4)*(x1*y2-y1*x2)-(y1-y2)*(x3*y4-y3*x4))/d;
         
         double[] point = {xi, yi};
         return point;
@@ -216,13 +245,13 @@ public class VecMath {
         ArrayList<Double> yValues = new ArrayList<>();
         
         for(PolygonLine currentLine : lines) {
-            xValues.add(currentLine.getPointA_X());
-            xValues.add(currentLine.getPointB_X());
-            yValues.add(currentLine.getPointA_Y());
-            yValues.add(currentLine.getPointB_Y());
+            xValues.add(currentLine.getRelativePointA()[0]);
+            xValues.add(currentLine.getRelativePointB()[0]);
+            yValues.add(currentLine.getRelativePointA()[1]);
+            yValues.add(currentLine.getRelativePointB()[1]);
         }
         
-        if(xValues.size()<1||yValues.size()<2) {
+        if(xValues.size()<1||yValues.size()<1) {
             a.setX(pos[0]);
             a.setY(pos[1]);
             a.setWidth(0);
@@ -230,11 +259,17 @@ public class VecMath {
         } else {
             Collections.sort(xValues);
             Collections.sort(yValues);
-            a.setX(pos[0]);
-            a.setY(pos[1]);
-            a.setWidth(xValues.get(xValues.size()-1) - xValues.get(0));
-            a.setHeight(yValues.get(yValues.size()-1) - yValues.get(0));
+            double xMin = xValues.get(0);
+            double xMax = xValues.get(xValues.size()-1);
+            double yMin = yValues.get(0);
+            double yMax = yValues.get(yValues.size()-1);
+            
+            a.setX(xMin);
+            a.setY(yMin);
+            a.setWidth(xMax - xMin);
+            a.setHeight(yMax - yMin);
             a.setOpacity(0.5);
+            System.out.println(a.getX()+" "+a.getY()+" "+a.getWidth()+" "+a.getHeight());
         }
         
         return a;

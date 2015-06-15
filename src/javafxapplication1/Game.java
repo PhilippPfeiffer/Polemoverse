@@ -16,6 +16,7 @@ import javafxapplication1.API.API;
 import javafxapplication1.controls.CommandHandler;
 import javafxapplication1.entities.Player;
 import javafxapplication1.physics.Polygon;
+import javafxapplication1.physics.ProjectilePhysics;
 import javafxapplication1.platforms.Floor_1;
 import javafxapplication1.platforms.Platform;
 import javafxapplication1.platforms.Wall_1;
@@ -48,17 +49,18 @@ public class Game extends Application {
     final DoubleProperty verticalVelocity = new SimpleDoubleProperty();
     final LongProperty lastUpdateTime = new SimpleLongProperty();
     final API api = new API(new Pane());
+    final ProjectilePhysics projectilePhysics = new ProjectilePhysics(api);
     
     @Override
     public void start(Stage primaryStage) {
        
         //Testing
         double[] pos1 = {500.0, 500.0};
-        double[] pointA = {0.0, 0.0};
+        double[] pointA = {200.0, 200.0};
         double[] pointB = {0.0, 100.0};
         double[] pointC = {100.0, 0.0};
         double[] pointD = {100.0, 100.0};
-        double[] pointE = {150.0, 200.0};
+        double[] pointE = {150.0, 250.0};
         Polygon polygon1 = new Polygon(pos1);
         polygon1.addLine(pointA, pointB);
         polygon1.addLine(pointB, pointD);
@@ -80,7 +82,7 @@ public class Game extends Application {
         Pane root = api.addToPane();
         
         player.setAPI(api);
-        player.addWeapon(new Pistol(getAPI(),10,5.0, 0.5,5.0,1,100.0,1000, 9.0));
+        player.addWeapon(new Pistol(getAPI(),10,5.0, 0.5,5.0,1,100.0,1000, 9.0, projectilePhysics));
         
         Scene scene = new Scene(root, maxX, maxY);
         
