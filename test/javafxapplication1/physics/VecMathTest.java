@@ -282,6 +282,8 @@ public class VecMathTest {
         double[] point3 = {10.0,0.0};
         double[] point4 = {10.0,10.0};
         double[] point5 = {13.324,14.324};
+        double[] point6 = {15.0,20.0};
+        double[] point7 = {23.0,19.0};
         
         PolygonLine line1 = new PolygonLine(startPos1, point4, point1);
         PolygonLine line2 = new PolygonLine(startPos1, point3, point2);
@@ -294,10 +296,14 @@ public class VecMathTest {
         
         PolygonLine line7 = new PolygonLine(startPos1, point5, point1);
         
+        PolygonLine line8 = new PolygonLine(startPos1, point1, point4);
+        PolygonLine line9 = new PolygonLine(startPos1, point6, point7);
+        
         double[] result1 = vecMath.intersectLines(line1, line2);
         double[] result2 = vecMath.intersectLines(line3, line4);
         double[] result3 = vecMath.intersectLines(line5, line6);
         double[] result4 = vecMath.intersectLines(line7, line2);
+        double[] result5 = vecMath.intersectLines(line8, line9);
         
         assertEquals("Intersection1_X", 5.0, result1[0], 0.001);
         assertEquals("Intersection1_Y", 5.0, result1[1], 0.001);
@@ -306,7 +312,56 @@ public class VecMathTest {
         
         assertNull("Intersection3", result3);
         
-        assertEquals("Intersection1_X", 4.819155092592593, result4[0], 0.001);
-        assertEquals("Intersection1_Y", 5.180844907407407, result4[1], 0.001);
+        assertEquals("Intersection4_X", 4.819155092592593, result4[0], 0.001);
+        assertEquals("Intersection4_Y", 5.180844907407407, result4[1], 0.001);
+        
+        assertEquals("Intersection5_X", 19.444444444444443, result5[0], 0.001);
+        assertEquals("Intersection5_Y", 19.444444444444443, result5[1], 0.001);
+    }
+    
+    @Test
+    public void testGetBoundingBox() {
+        double[] point1 = {0.0,0.0};
+        double[] point2 = {0.0,10.0};
+        double[] point3 = {10.0,0.0};
+        double[] point4 = {10.0,10.0};
+        double[] point5 = {-10.0,-10.0};
+        
+        double[] result1 = vecMath.getBoundingBox(point1, point2);
+        double[] result2 = vecMath.getBoundingBox(point1, point4);
+        double[] result3 = vecMath.getBoundingBox(point4, point5);
+        
+        assertEquals("Box1x1", 0.0, result1[0], 0.001);
+        assertEquals("Box1y1", 0.0, result1[1], 0.001);
+        assertEquals("Box1x2", 0.0, result1[2], 0.001);
+        assertEquals("Box1y2", 10.0, result1[3], 0.001);
+        
+        assertEquals("Box2x1", 0.0, result2[0], 0.001);
+        assertEquals("Box2y1", 0.0, result2[1], 0.001);
+        assertEquals("Box2x2", 10.0, result2[2], 0.001);
+        assertEquals("Box2y2", 10.0, result2[3], 0.001);
+        
+        assertEquals("Box3x1", -10.0, result3[0], 0.001);
+        assertEquals("Box3y1", -10.0, result3[1], 0.001);
+        assertEquals("Box3x2", 10.0, result3[2], 0.001);
+        assertEquals("Box3y2", 10.0, result3[3], 0.001);
+    }
+    
+    @Test
+    public void testIsPointInBoundingBox() {
+        
+        double[] point1 = {10.0,10.0};
+        double[] point2 = {-10.0,-10.0};
+        double[] point3 = {0.0,0.0};
+        double[] point4 = {5.0,5.0};
+        
+        double[] box1 = vecMath.getBoundingBox(point1, point2);
+        
+        assertTrue("isInBox1", vecMath.isPointInBoundingBox(point1, point2, point4));
+        assertTrue("isInBox1", vecMath.isPointInBoundingBox(point3, point1, point4));
+        assertTrue("isInBox1", vecMath.isPointInBoundingBox(point1, point1, point1));
+        assertFalse("isInBox1", vecMath.isPointInBoundingBox(point1, point4, point2));
+        assertFalse("isInBox1", vecMath.isPointInBoundingBox(point1, point4, point3));
+        
     }
 }

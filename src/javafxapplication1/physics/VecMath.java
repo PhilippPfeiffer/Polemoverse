@@ -184,9 +184,43 @@ public class VecMath {
     }
     
     /**
+     * Wraps a box around a line and returns the box in a double array. 
+     * The array is structured as {x1,y1,x2,y2}.
+     * @param lineStart
+     * @param lineEnd
+     * @return 
+     */
+    public double[] getBoundingBox(double[] lineStart, double[] lineEnd) {
+        double[] box = {0.0,0.0,0.0,0.0};
+        
+        box[0] = Math.min(lineStart[0], lineEnd[0]);
+        box[1] = Math.min(lineStart[1], lineEnd[1]);
+        box[2] = Math.max(lineStart[0], lineEnd[0]);
+        box[3] = Math.max(lineStart[1], lineEnd[1]);
+        
+        return box;
+    }
+    
+    /**
+     * Checks if a point is within the bounding box of a line.
+     * @param lineStart
+     * @param lineEnd
+     * @param point
+     * @return boolean
+     */
+    public boolean isPointInBoundingBox(double[] lineStart, double[] lineEnd, double[] point) {
+        double[] box = getBoundingBox(lineStart, lineEnd);
+        double epsilon = 0.01;
+        if(point[0]>= box[0]-epsilon && point[0]<=box[2]+epsilon  && point[1]>=box[1]-epsilon  && point[1]<=box[3]+epsilon ) {
+            return true;
+        } else return false;  
+    }
+    
+    /**
      * Intersects two lines and returns the point at which they intersect, if
      * they intersect. Returns null, if there is no intersction
-     * @param line1
+     * @param line1Start
+     * @param line1End
      * @param line2
      * @return double[] point if intersection occurs. Null if not.
      */
@@ -201,6 +235,9 @@ public class VecMath {
         double x4 = line2.getEndX();
         double y4 = line2.getEndY();
         
+        double[] line2Start = {line2.getStartX(),line2.getStartY()};
+        double[] line2End = {line2.getEndX(), line2.getEndY()};
+        
         double d = (x1-x2)*(y3-y4) - (y1-y2)*(x3-x4);
         if (d == 0) return null;
     
@@ -208,7 +245,10 @@ public class VecMath {
         double yi = ((y3-y4)*(x1*y2-y1*x2)-(y1-y2)*(x3*y4-y3*x4))/d;
         
         double[] point = {xi, yi};
-        return point;
+        if(isPointInBoundingBox(line1Start, line1End, point) && 
+                isPointInBoundingBox(line2Start, line2End, point)) {
+            return point;
+        } else return null;
     }
     
     /**

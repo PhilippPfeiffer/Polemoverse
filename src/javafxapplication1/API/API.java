@@ -5,6 +5,8 @@ import javafxapplication1.Background.BackgroundObject;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 import javafxapplication1.Collections.BackgroundObjects;
 import javafxapplication1.Collections.Figures;
@@ -29,6 +31,7 @@ public class API {
     Projectiles projectiles;
     Polygons polygons;
     Pane root;
+    ArrayList<Circle> dots = new ArrayList<>();
     
     public API(Pane root) {
         figures = new Figures();
@@ -211,6 +214,21 @@ public class API {
         moveAllProjectiles(deltaX, deltaY);
         moveAllPolygons(deltaX, deltaY);
         moveBackground(deltaX, deltaY);
+        moveDots(deltaX, deltaY);
+    }
+    
+    public void drawDot(double[] pos, double radius) {
+        Circle a = new Circle(pos[0],pos[1],radius);
+        a.setFill(Color.DARKSALMON);
+        dots.add(a);
+        root.getChildren().add(a);
+    }
+    
+    public void moveDots(double deltaX, double deltaY) {
+        for(Circle dot : dots) {
+            dot.setCenterX(dot.getCenterX() + deltaX);
+            dot.setCenterY(dot.getCenterY() + deltaY);
+        }
     }
     
 }

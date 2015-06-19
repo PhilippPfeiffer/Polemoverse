@@ -4,6 +4,7 @@ package javafxapplication1.physics;
 import java.util.ArrayList;
 import javafx.scene.shape.Line;
 import javafxapplication1.API.API;
+import javafxapplication1.API.PrintWriter;
 import javafxapplication1.Collections.Polygons;
 import projectiles.Projectile;
 
@@ -15,6 +16,9 @@ public class ProjectilePhysics {
     
     private final VecMath vecMath = new VecMath();
     private final API api;
+    
+    //PrintWriter
+    PrintWriter printWriter = new PrintWriter();
     
     public ProjectilePhysics(API api) {
         this.api = api;
@@ -67,11 +71,10 @@ public class ProjectilePhysics {
                 ArrayList<double[]> intersections = new ArrayList<>();
                 for(PolygonLine polygonLine : polygonLines) {
                     double[] point = vecMath.intersectLines(oldPos, newPos, polygonLine.getLine());
-                    if(point == null) {
-                        System.out.println("missed");
-                    }
                     if(point != null) {
-                        System.out.println(point[0] + "," + point[1]);
+                        double angle = vecMath.getAngle(projectile.getVector(), vecMath.getVecToPoint(polygonLine.getPointA(), polygonLine.getPointB()));
+                        System.out.println(angle);
+                        api.drawDot(point, 5);
                     }
                 }
             }
