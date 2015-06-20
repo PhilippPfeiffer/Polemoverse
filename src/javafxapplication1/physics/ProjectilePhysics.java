@@ -68,12 +68,15 @@ public class ProjectilePhysics {
         for(Polygon polygon : api.getPolygons().getAllPolygonsList()) {
             if(projectile.getLine().getBoundsInParent().intersects(polygon.getBoundingBox().getBoundsInParent())) {
                 ArrayList<PolygonLine> polygonLines = polygon.getPolygonLines();
-                ArrayList<double[]> intersections = new ArrayList<>();
                 for(PolygonLine polygonLine : polygonLines) {
                     double[] point = vecMath.intersectLines(oldPos, newPos, polygonLine.getLine());
                     if(point != null) {
                         double angle = vecMath.getAngle(projectile.getVector(), vecMath.getVecToPoint(polygonLine.getPointA(), polygonLine.getPointB()));
-                        System.out.println(angle);
+                        angle = angle % 180;
+                        double[] oldVec = projectile.getVecNotNormalized();
+                        double[] newVec = vecMath.rotateVec(oldVec, angle);
+                        projectile.setVecNotNormalized(newVec);
+                        projectile.setPos(point);
                         api.drawDot(point, 5);
                     }
                 }

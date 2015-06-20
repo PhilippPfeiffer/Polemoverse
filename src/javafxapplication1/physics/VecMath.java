@@ -106,13 +106,32 @@ public class VecMath {
     }
        
     /**
-     * eturns the length of a given vector.
+     * Returns the length of a given vector.
      * @param vec
      * @return double
      */
     public double getVecLength(double[] vec) {
         return Math.sqrt(Math.pow(vec[0], 2.0)+Math.pow(vec[1], 2.0));
     }
+    
+    /**
+     * Returns the left normal vector of the given vector
+     * @param vec
+     * @return double[]
+     */
+    public double[] getNormalVecLeft(double[] vec) {
+        return rotateVec(vec, 270.0);
+    }
+    
+    /**
+     * Returns the right normal vector of the given vector
+     * @param vec
+     * @return double[]
+     */
+    public double[] getNormalVecRight(double[] vec) {
+        return rotateVec(vec, 90.0);
+    }
+    
     
     /**
      * Normalizes and returns a given vector.
