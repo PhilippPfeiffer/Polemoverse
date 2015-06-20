@@ -364,4 +364,25 @@ public class VecMathTest {
         assertFalse("isInBox1", vecMath.isPointInBoundingBox(point1, point4, point3));
         
     }
+    
+    @Test
+    public void testGetNormalVec() {
+        double[] vector1 = {10.0,10.0};
+        
+        double[] nVec1Left = vecMath.getNormalVecLeft(vector1);
+        double[] nVec1Right = vecMath.getNormalVecRight(vector1);
+        
+        double[] nVec2Left = vecMath.getNormalVecLeft(nVec1Left);
+        double[] nVec2eft = vecMath.getNormalVecRight(nVec1Right);
+        
+        assertEquals("X", 10.0, nVec1Left[0], 0.001);
+        assertEquals("Y", -10.0, nVec1Left[1], 0.001);
+        assertEquals("X", -10.0, nVec1Right[0], 0.001);
+        assertEquals("Y", 10.0, nVec1Right[1], 0.001);
+        
+        assertEquals("X", -10.0, nVec2Left[0], 0.001);
+        assertEquals("Y", -10.0, nVec2Left[1], 0.001);
+        assertEquals("X", -10.0, nVec2eft[0], 0.001);
+        assertEquals("Y", -10.0, nVec2eft[1], 0.001);
+    }
 }

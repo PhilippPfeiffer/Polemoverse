@@ -20,6 +20,8 @@ public abstract class Bullet implements Projectile {
     private double velocity = 0.0;
     private double range = 0.0;
     private double[] vector = {0.0,0.0};
+    private double[] nVec1= {0.0,0.0};
+    private double[] nVec2= {0.0,0.0};
     private double[] pos = {0.0,0.0};
     private String type = "Bullet";
     private ArrayList<Shape> shapes = new ArrayList<>();
@@ -28,6 +30,22 @@ public abstract class Bullet implements Projectile {
     private double[] vecNotNormalized = {0.0,0.0};
     Line line;
 
+    public double[] getnVec1() {
+        return nVec1;
+    }
+
+    public void setnVec1(double[] nVec1) {
+        this.nVec1 = nVec1;
+    }
+
+    public double[] getnVec2() {
+        return nVec2;
+    }
+
+    public void setnVec2(double[] nVec2) {
+        this.nVec2 = nVec2;
+    }
+    
     @Override
     public ProjectilePhysics getProjectilePhysics() {
         return projectilePhysics;

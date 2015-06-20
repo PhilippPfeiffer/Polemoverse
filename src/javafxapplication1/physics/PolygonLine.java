@@ -17,6 +17,9 @@ public class PolygonLine {
     private double[] pointB;
     private double[] relativePointA;
     private double[] relativePointB;
+    private double[] vec;
+    private double[] nVec1;
+    private double[] nVec2;
     Line line = new Line();
     
     public PolygonLine(double[] pos, double[] pointA, double[] pointB) {
@@ -24,6 +27,9 @@ public class PolygonLine {
         this.pointB = vecMath.addVec(pos, pointB);
         this.relativePointA = pointA;
         this.relativePointB = pointB;
+        this.vec = vecMath.getVecToPoint(pointA, pointB);
+        this.nVec1 = vecMath.getNormalVecLeft(vec);
+        this.nVec2 = vecMath.getNormalVecRight(vec);
         Line newLine = new Line();
         newLine.setStartX(pointA[0] + pos[0]);
         newLine.setStartY(pointA[1] + pos[1]);
@@ -34,6 +40,32 @@ public class PolygonLine {
         newLine.setStrokeWidth(5);
         this.line = newLine;
     }
+
+    public double[] getVec() {
+        return vec;
+    }
+
+    public void setVec(double[] vec) {
+        this.vec = vec;
+    }
+
+    public double[] getnVec1() {
+        return nVec1;
+    }
+
+    public void setnVec1(double[] nVec1) {
+        this.nVec1 = nVec1;
+    }
+
+    public double[] getnVec2() {
+        return nVec2;
+    }
+
+    public void setnVec2(double[] nVec2) {
+        this.nVec2 = nVec2;
+    }
+    
+    
 
     public double[] getRelativePointA() {
         return relativePointA;

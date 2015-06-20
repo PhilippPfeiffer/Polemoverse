@@ -17,6 +17,8 @@ public class Bullet_Pistol extends Bullet{
         setPos(pos);
         double[] vector = getProjectilePhysics().getNormalizedVector(pos, target);
         double[] vecNotNormalized = getVecMath().multiplyVec(vector, velocity);
+        setnVec1(getVecMath().getNormalVecLeft(vecNotNormalized));
+        setnVec2(getVecMath().getNormalVecRight(vecNotNormalized));
         setVector(vector);
         setVecNotNormalized(vecNotNormalized);
         
