@@ -20,9 +20,11 @@ public class PolygonLine {
     private double[] vec;
     private double[] nVec1;
     private double[] nVec2;
+    private double thickness;
     Line line = new Line();
     
-    public PolygonLine(double[] pos, double[] pointA, double[] pointB) {
+    public PolygonLine(double[] pos, double[] pointA, double[] pointB, double thickness) {
+        this.thickness = thickness;
         this.pointA = vecMath.addVec(pos, pointA);
         this.pointB = vecMath.addVec(pos, pointB);
         this.relativePointA = pointA;
@@ -41,6 +43,14 @@ public class PolygonLine {
         this.line = newLine;
     }
 
+    public double getThickness() {
+        return thickness;
+    }
+
+    public void setThickness(double thickness) {
+        this.thickness = thickness;
+    }
+    
     public double[] getVec() {
         return vec;
     }

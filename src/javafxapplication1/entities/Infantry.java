@@ -8,6 +8,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafxapplication1.API.API;
+import javafxapplication1.API.PrintWriter;
 import javafxapplication1.physics.VecMath;
 import javafxapplication1.platforms.Platform;
 import projectiles.Bullet_Pistol;
@@ -18,7 +19,6 @@ import weapons.Weapon;
  * @author Philipp
  */
 public abstract class Infantry implements Figure{
-    
     
     private final String type = "Infantry";
     private final HashMap<String, String> stateMap = new HashMap<>();
@@ -42,6 +42,8 @@ public abstract class Infantry implements Figure{
     private double height;
     private double width;
     
+    private double cooldownTime = 0;
+    
     private boolean moving = false;
     private String direction = "right";
     
@@ -53,12 +55,30 @@ public abstract class Infantry implements Figure{
     private double positionY;
     
     private API api;
+    
+    private boolean isPlayer = false;
+    private boolean isCoolingDown = false;
+    private boolean isShooting = false;
    
     private ArrayList<Weapon> weapons = new ArrayList<>();
+    private Weapon currentWeapon = null;
+    
+    private PrintWriter printWriter = new PrintWriter();
+    
+    @Override
+    public void tickDownCooldownTime() {
+        if(cooldownTime>0) {
+            setCoolingDown(true);
+            cooldownTime--;
+        } else setCoolingDown(false);
+    }
     
     @Override
     public void addWeapon(Weapon weapon) {
         weapons.add(weapon);
+        if(currentWeapon == null) {
+            setCurrentWeapon(weapon);
+        }
     }
     
     @Override
@@ -595,7 +615,6 @@ public abstract class Infantry implements Figure{
         addShape(e);
         addShape(f);
         addShape(g);
-
     }
     
     @Override
@@ -612,11 +631,65 @@ public abstract class Infantry implements Figure{
     }
 
     @Override
-    public void shoot(double targetX, double targetY) {
-        double[] startPos = getPosition();
-        double[] targetPos = {targetX, targetY};
-        getWeapon(0).fire(startPos, targetPos);
-  
+    public void shoot() {
+        if(isShooting) {
+            if(!isCoolingDown) {
+                double[] startPos = getPosition();
+                double[] targetPos = {api.getCursor().getxPos(), api.getCursor().getyPos()};
+                currentWeapon.fire(startPos, targetPos);
+                setCooldownTime(currentWeapon.getFireRate());
+                System.out.println(printWriter.toString(api.getCursor().getPos()));
+            } 
+        }
     }
- 
+
+    @Override
+    public boolean isPlayer() {
+        return isPlayer;
+    }
+
+    @Override
+    public void setAsPlayer(boolean isPlayer) {
+        this.isPlayer = isPlayer;
+    }
+
+    @Override
+    public void setCooldownTime(double cooldownTime) {
+        this.cooldownTime = cooldownTime;
+    }
+
+    @Override
+    public double getCooldownTime() {
+        return cooldownTime;
+    }
+
+    @Override
+    public void setCurrentWeapon(Weapon weapon) {
+        this.currentWeapon = weapon;
+    }
+
+    @Override
+    public Weapon getCurrentWeapon() {
+        return currentWeapon;
+    }
+
+    @Override
+    public boolean isCoolingDown() {
+        return isCoolingDown;
+    }
+
+    @Override
+    public void setCoolingDown(boolean isCoolingDown) {
+        this.isCoolingDown = isCoolingDown;
+    }
+
+    @Override
+    public boolean isShooting() {
+        return isShooting;
+    }
+
+    @Override
+    public void setShooting(boolean isShooting) {
+        this.isShooting = isShooting;
+    }
 }

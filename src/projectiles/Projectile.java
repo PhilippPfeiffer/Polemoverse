@@ -4,6 +4,7 @@ package projectiles;
 import java.util.ArrayList;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Shape;
+import javafxapplication1.physics.PolygonLine;
 import javafxapplication1.physics.ProjectilePhysics;
 import javafxapplication1.physics.VecMath;
 
@@ -26,6 +27,9 @@ public interface Projectile {
     public void setVecNotNormalized(double[] vecNotNormalized);
     public void setVecMath(VecMath vecMath);
     public void setLine(Line line);
+    public void setLastLineHit(PolygonLine lastLineHit);
+    public void setnVec1(double[] nVec1);
+    public void setnVec2(double[] nVec2);
     
     public double getCaliber();
     public double getVelocity();
@@ -40,6 +44,9 @@ public interface Projectile {
     public double[] getVecNotNormalized();
     public VecMath getVecMath();
     public Line getLine();
+    public PolygonLine getLastLineHit();
+    public double[] getnVec1();
+    public double[] getnVec2();
     
     public void move(double deltaX, double deltaY);
     

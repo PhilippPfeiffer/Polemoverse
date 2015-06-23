@@ -7,6 +7,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.scene.shape.StrokeLineCap;
+import javafxapplication1.physics.PolygonLine;
 import javafxapplication1.physics.ProjectilePhysics;
 import javafxapplication1.physics.VecMath;
 
@@ -29,19 +30,34 @@ public abstract class Bullet implements Projectile {
     private VecMath vecMath = new VecMath();
     private double[] vecNotNormalized = {0.0,0.0};
     Line line;
+    PolygonLine lastLineHit = null;
 
+    @Override
+    public PolygonLine getLastLineHit() {
+        return lastLineHit;
+    }
+
+    @Override
+    public void setLastLineHit(PolygonLine lastLineHit) {
+        this.lastLineHit = lastLineHit;
+    }
+
+    @Override
     public double[] getnVec1() {
         return nVec1;
     }
 
+    @Override
     public void setnVec1(double[] nVec1) {
         this.nVec1 = nVec1;
     }
 
+    @Override
     public double[] getnVec2() {
         return nVec2;
     }
 
+    @Override
     public void setnVec2(double[] nVec2) {
         this.nVec2 = nVec2;
     }

@@ -79,7 +79,7 @@ public interface Figure {
     public void stop();
     public void jump();
     
-    public void shoot(double targetX, double targetY);
+    public void shoot();
     
     public void handleCollision(Platform platform);
     
@@ -90,8 +90,24 @@ public interface Figure {
     
     public void initializeBoxes();
     public void initializeStates();
+
+    public boolean isPlayer();
     
+    public void setAsPlayer(boolean isPlayer);
     
+    public void tickDownCooldownTime();
     
+    public void setCooldownTime(double cooldownTime);
+    
+    public double getCooldownTime();
+    
+    public void setCurrentWeapon(Weapon weapon);
+    
+    public Weapon getCurrentWeapon();
+    
+    public boolean isCoolingDown();
+    public void setCoolingDown(boolean isCoolingDown);
+    public boolean isShooting();
+    public void setShooting(boolean isShooting);
     
 }

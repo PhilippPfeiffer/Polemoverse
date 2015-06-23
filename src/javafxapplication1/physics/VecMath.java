@@ -1,6 +1,7 @@
 
 package javafxapplication1.physics;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -172,6 +173,51 @@ public class VecMath {
     }
     
     /**
+     * Returns the angle between vec and the closest nVec to it.
+     * @param vec
+     * @param nVec1
+     * @param nVec2
+     * @return double
+     */
+    public double getApplicableNormalVectorAngle(double[] vec, double[] nVec1, double[] nVec2) {
+        double angle1 = getAngle(vec,nVec1);
+        double angle2 = getAngle(vec,nVec2);
+        if(angle1>90 && angle2>180) {
+            return angle1;
+        } else if(angle1>180 && angle2>90) {
+            return angle2;
+        } else if(angle1>180 && angle2<90) {
+            return angle1;
+        } else {
+            return angle2;
+        }
+    }
+    
+    /**
+     * Returns the angle a projectile is deflected in
+     * @param vec
+     * @param nVec1
+     * @param nVec2
+     * @return double
+     */
+    public double getDeflectionAngle(double[] vec,double[] nVec1, double[] nVec2) {
+        double nVecAngle = getApplicableNormalVectorAngle(vec,nVec1,nVec2);
+        if(nVecAngle<90) {
+            double angle = 360-nVecAngle/2;
+            return angle;
+        } else if(90<=nVecAngle && nVecAngle<180) {
+            double angle = 180+2*nVecAngle;
+            return angle;
+        } else if(180<=nVecAngle && nVecAngle<270) {
+            double angle = 180+2*(nVecAngle%180);
+            return angle;
+        } else {
+            double angle = 180+2*(360 - nVecAngle);
+            return angle;
+        }
+    }
+    
+    /**
      * Finds and returns the angle between two vectors.
      * @param vec1
      * @param vec2
@@ -328,7 +374,6 @@ public class VecMath {
             a.setWidth(xMax - xMin);
             a.setHeight(yMax - yMin);
             a.setOpacity(0.5);
-            System.out.println(a.getX()+" "+a.getY()+" "+a.getWidth()+" "+a.getHeight());
         }
         
         return a;

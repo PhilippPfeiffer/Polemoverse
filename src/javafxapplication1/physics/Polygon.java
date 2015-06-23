@@ -54,8 +54,8 @@ public class Polygon {
         setBoundingBox(vecMath.buildBoundingBox(pos, polygonLines));
     }
     
-    public void addLine(double[] pointA, double[] pointB) {
-        this.polygonLines.add(new PolygonLine(pos, pointA, pointB));
+    public void addLine(double[] pointA, double[] pointB, double thickness) {
+        this.polygonLines.add(new PolygonLine(pos, pointA, pointB, thickness));
         setBoundingBox(vecMath.buildBoundingBox(pos, polygonLines));
     }
     

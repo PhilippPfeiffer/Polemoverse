@@ -29,9 +29,7 @@ public class ProjectilePhysics {
         fall(projectile);
         
         double[] pos = projectile.getPos();
-        double[] vector = projectile.getVector();
         double[] vecNotNormalized = projectile.getVecNotNormalized();
-        double velocity = projectile.getVelocity();
         
         double[] newPos = vecMath.addVec(pos, vecNotNormalized);
         
@@ -70,18 +68,28 @@ public class ProjectilePhysics {
                 ArrayList<PolygonLine> polygonLines = polygon.getPolygonLines();
                 for(PolygonLine polygonLine : polygonLines) {
                     double[] point = vecMath.intersectLines(oldPos, newPos, polygonLine.getLine());
+                    if(projectile.getLastLineHit()!=null) {
+                        if(projectile.getLastLineHit()==polygonLine) {
+                            continue;
+                        }
+                    }
                     if(point != null) {
-                        double angle = vecMath.getAngle(projectile.getVector(), vecMath.getVecToPoint(polygonLine.getPointA(), polygonLine.getPointB()));
-                        angle = angle % 180;
+                        double deflectionAngle = vecMath.getDeflectionAngle(projectile.getVecNotNormalized(), polygonLine.getnVec1(), polygonLine.getnVec2());
                         double[] oldVec = projectile.getVecNotNormalized();
-                        double[] newVec = vecMath.rotateVec(oldVec, angle);
+                        double[] newVec = vecMath.rotateVec(oldVec, deflectionAngle);
                         projectile.setVecNotNormalized(newVec);
                         projectile.setPos(point);
+                        projectile.setLastLineHit(polygonLine);
                         api.drawDot(point, 5);
+                        break;
                     }
                 }
             }
         }
-        
+    }
+    
+    public void penetrates(Projectile projectile, PolygonLine polygonLine, double angle) {
+        double caliber = projectile.getCaliber();
+        double speed = projectile.getVecNotNormalized().length;
     }
 }

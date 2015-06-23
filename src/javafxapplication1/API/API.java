@@ -1,6 +1,7 @@
 
 package javafxapplication1.API;
 
+import UI.Cursor;
 import javafxapplication1.Background.BackgroundObject;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -17,6 +18,7 @@ import javafxapplication1.entities.Figure;
 import javafxapplication1.physics.Polygon;
 import javafxapplication1.platforms.Platform;
 import projectiles.Projectile;
+import weapons.Weapon;
 
 
 /**
@@ -32,6 +34,8 @@ public class API {
     Polygons polygons;
     Pane root;
     ArrayList<Circle> dots = new ArrayList<>();
+    ArrayList<Weapon> weapons = new ArrayList<>();
+    Cursor cursor;
     
     public API(Pane root) {
         figures = new Figures();
@@ -40,6 +44,7 @@ public class API {
         projectiles = new Projectiles();
         polygons = new Polygons();
         this.root = root;
+        this.cursor = new Cursor();
     }
     
     public Pane addToPane() {
@@ -185,7 +190,7 @@ public class API {
     }
     
     public void moveAllFigures(double deltaX, double deltaY) {
-        //TODO
+        figures.moveAllFigures(deltaX, deltaY);
     }
     
     public void moveAllPolygons(double deltaX, double deltaY) {
@@ -229,6 +234,14 @@ public class API {
             dot.setCenterX(dot.getCenterX() + deltaX);
             dot.setCenterY(dot.getCenterY() + deltaY);
         }
+    }
+    
+    public Cursor getCursor() {
+        return cursor;
+    }
+    
+    public void setCursor(Cursor cursor) {
+        this.cursor = cursor;
     }
     
 }

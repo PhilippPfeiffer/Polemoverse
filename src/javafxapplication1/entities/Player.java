@@ -8,6 +8,8 @@ package javafxapplication1.entities;
 public class Player extends Infantry {
     
     public Player(double positionX, double positionY) {
+        
+        setAsPlayer(true);
                 
         setPosition(positionX, positionY);
         
@@ -17,5 +19,5 @@ public class Player extends Infantry {
         initializeStates();
         
         initializeBoxes();
-    }
+        }
 }

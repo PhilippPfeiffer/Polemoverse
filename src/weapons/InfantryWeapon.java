@@ -13,8 +13,8 @@ import projectiles.Projectile;
  * @author Philipp
  */
 public abstract class InfantryWeapon implements Weapon {
-    
-    
+
+    private int cooldownTime = 0;
     private int magazineSize = 0;
     private double reloadTime = 0.0;
     private double fireRate = 0.0;
@@ -156,5 +156,4 @@ public abstract class InfantryWeapon implements Weapon {
         this.api = api;
     }
 
-    
 }

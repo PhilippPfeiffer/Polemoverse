@@ -273,6 +273,8 @@ public class VecMathTest {
      */
     @Test
     public void testIntersectLines() {
+        double thickness = 10.0;
+        
         double[] startPos1 = {0.0,0.0};
         double[] startPos2 = {0.25,0.25};
         double[] startPos3 = {5.0,5.0};
@@ -285,19 +287,19 @@ public class VecMathTest {
         double[] point6 = {15.0,20.0};
         double[] point7 = {23.0,19.0};
         
-        PolygonLine line1 = new PolygonLine(startPos1, point4, point1);
-        PolygonLine line2 = new PolygonLine(startPos1, point3, point2);
+        PolygonLine line1 = new PolygonLine(startPos1, point4, point1, thickness);
+        PolygonLine line2 = new PolygonLine(startPos1, point3, point2, thickness);
         
-        PolygonLine line3 = new PolygonLine(startPos2, point1, point2);
-        PolygonLine line4 = new PolygonLine(startPos3, point1, point2);
+        PolygonLine line3 = new PolygonLine(startPos2, point1, point2, thickness);
+        PolygonLine line4 = new PolygonLine(startPos3, point1, point2, thickness);
         
-        PolygonLine line5 = new PolygonLine(startPos3, point1, point2);
-        PolygonLine line6 = new PolygonLine(startPos3, point1, point2);
+        PolygonLine line5 = new PolygonLine(startPos3, point1, point2, thickness);
+        PolygonLine line6 = new PolygonLine(startPos3, point1, point2, thickness);
         
-        PolygonLine line7 = new PolygonLine(startPos1, point5, point1);
+        PolygonLine line7 = new PolygonLine(startPos1, point5, point1, thickness);
         
-        PolygonLine line8 = new PolygonLine(startPos1, point1, point4);
-        PolygonLine line9 = new PolygonLine(startPos1, point6, point7);
+        PolygonLine line8 = new PolygonLine(startPos1, point1, point4, thickness);
+        PolygonLine line9 = new PolygonLine(startPos1, point6, point7, thickness);
         
         double[] result1 = vecMath.intersectLines(line1, line2);
         double[] result2 = vecMath.intersectLines(line3, line4);

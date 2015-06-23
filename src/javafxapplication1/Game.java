@@ -1,6 +1,7 @@
 
 package javafxapplication1;
 
+import UI.Cursor;
 import javafxapplication1.Background.BackgroundObject;
 import javafxapplication1.Background.Tile;
 import javafx.animation.AnimationTimer;
@@ -55,19 +56,21 @@ public class Game extends Application {
     public void start(Stage primaryStage) {
        
         //Testing
+        double thickness1 = 10.0;
+        double thickness2 = 30.0;
+        double thickness3 = 50.0;
         double[] pos1 = {500.0, 500.0};
-        double[] pointA = {200.0, 200.0};
-        double[] pointB = {0.0, 100.0};
-        double[] pointC = {100.0, 0.0};
-        double[] pointD = {100.0, 100.0};
-        double[] pointE = {150.0, 250.0};
+        double[] pointA = {0.0, 0.0};
+        double[] pointB = {300.0, 150.0};
+        double[] pointC = {400.0, 300.0};
+        double[] pointD = {150.0, 200.0};
+        double[] pointE = {0.0, 0.0};
         Polygon polygon1 = new Polygon(pos1);
-        polygon1.addLine(pointA, pointB);
-        polygon1.addLine(pointB, pointD);
-        polygon1.addLine(pointD, pointC);
-        polygon1.addLine(pointC, pointA);
-        polygon1.addLine(pointC, pointE);
-
+        polygon1.addLine(pointA, pointB, thickness1);
+        polygon1.addLine(pointB, pointC, thickness2);
+        polygon1.addLine(pointC, pointD, thickness3);
+        polygon1.addLine(pointD, pointE, thickness3);
+        polygon1.addLine(pointE, pointA, thickness3);
                
         api.createBackgroundlayers(3);
         api.addFigure(player);
@@ -82,7 +85,9 @@ public class Game extends Application {
         Pane root = api.addToPane();
         
         player.setAPI(api);
-        player.addWeapon(new Pistol(getAPI(),10,5.0, 0.5,5.0,1,25.0,1000, 9.0, projectilePhysics));
+        
+        //weapon parameters: API, magazinesize, 
+        player.addWeapon(new Pistol(getAPI(),10,5.0,25.0,5.0,1,50.0,1000, 9.0, projectilePhysics));
         
         Scene scene = new Scene(root, maxX, maxY);
         
@@ -120,7 +125,7 @@ public class Game extends Application {
         
         animation.start();
         
-        scene = commandHandler.setEventHandlers(scene, player);
+        scene = commandHandler.setEventHandlers(scene, player, api);
         
         primaryStage.setTitle("Box Test");
         primaryStage.setScene(scene);

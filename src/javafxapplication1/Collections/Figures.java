@@ -12,8 +12,10 @@ import javafxapplication1.entities.Figure;
 public class Figures {
     
     private final HashMap<String, ArrayList<Figure>> allFigures;
+    private final ArrayList<Figure> allFiguresList;
     
     public Figures() {
+        allFiguresList = new ArrayList<>();
         allFigures = new HashMap<>();
         allFigures.put("Tanks", new ArrayList<>());
         allFigures.put("Cavalry", new ArrayList<>());
@@ -35,6 +37,7 @@ public class Figures {
     }
     
     public void addFigure(Figure figure) {
+        allFiguresList.add(figure);
         String type = figure.getType();
         switch (type) {
             case "Infantry": 
@@ -49,6 +52,22 @@ public class Figures {
             case "Vehicle":
                 allFigures.get("Vehicle").add(figure);
                 break;
+        }
+    }
+    
+    /**
+     * Moves All Figures, except the player, in the given direction. Also updates
+     * cooldown times and triggers shooting events.
+     * @param deltaX
+     * @param deltaY 
+     */
+    public void moveAllFigures(double deltaX, double deltaY) {
+        for(Figure figure : allFiguresList) {
+            if(!figure.isPlayer()){
+                figure.move(deltaX, deltaY);
+            }
+            figure.tickDownCooldownTime();
+            figure.shoot();
         }
     }
     

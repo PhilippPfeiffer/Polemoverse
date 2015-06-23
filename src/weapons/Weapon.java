@@ -58,5 +58,4 @@ public interface Weapon {
     
     void setAPI(API api);
     
-    
 }

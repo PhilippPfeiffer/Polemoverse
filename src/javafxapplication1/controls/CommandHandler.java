@@ -5,6 +5,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
+import javafxapplication1.API.API;
 import javafxapplication1.entities.Figure;
 
 /**
@@ -16,7 +17,7 @@ public class CommandHandler {
     public CommandHandler() {  
     }
     
-    public Scene setEventHandlers(Scene scene, Figure player) {
+    public Scene setEventHandlers(Scene scene, Figure player, API api) {
         scene.setOnKeyPressed((KeyEvent event) -> {
             if (event.getCode()==KeyCode.D) {
                 player.moveRight();
@@ -41,10 +42,25 @@ public class CommandHandler {
             }
         });
         
-        scene.setOnMouseClicked((MouseEvent event) -> {
-            player.shoot(event.getX(), event.getY());
+        scene.setOnMouseMoved((MouseEvent event) -> {
+            double[] cursorPos = {event.getX(),event.getY()};
+            api.getCursor().setPos(cursorPos);
         });
-    
+        
+        scene.setOnMouseDragged((MouseEvent event) -> {
+            double[] cursorPos = {event.getX(),event.getY()};
+            api.getCursor().setPos(cursorPos);
+        });
+        
+        scene.setOnMousePressed((MouseEvent event) -> {
+            player.setShooting(true);
+        });
+        
+        scene.setOnMouseReleased((MouseEvent event) -> {
+            player.setShooting(false);
+        });
+        
+        
         
         return scene;
     }
