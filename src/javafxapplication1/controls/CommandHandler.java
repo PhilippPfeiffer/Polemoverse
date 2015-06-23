@@ -27,6 +27,18 @@ public class CommandHandler {
                 player.jump();
             } else if (event.getCode() == KeyCode.SHIFT) {
                 player.setSprinting(true);
+            } else if (event.getCode() == KeyCode.DIGIT1) {
+                player.changeWeaponSlot(0);
+                player.setShooting(false);
+            } else if (event.getCode() == KeyCode.DIGIT2) {
+                player.changeWeaponSlot(1);
+                player.setShooting(false);
+            } else if (event.getCode() == KeyCode.DIGIT3) {
+                player.changeWeaponSlot(2);
+                player.setShooting(false);
+            } else if (event.getCode() == KeyCode.DIGIT4) {
+                player.changeWeaponSlot(3);
+                player.setShooting(false);
             }
         });
 
@@ -39,6 +51,18 @@ public class CommandHandler {
                 player.setJumping(false);
             } else if (event.getCode() == KeyCode.SHIFT) {
                 player.setSprinting(false);
+            } else if (event.getCode() == KeyCode.DIGIT1) {
+                player.changeWeaponSlot(0);
+                player.setShooting(false);
+            } else if (event.getCode() == KeyCode.DIGIT2) {
+                player.changeWeaponSlot(1);
+                player.setShooting(false);
+            } else if (event.getCode() == KeyCode.DIGIT3) {
+                player.changeWeaponSlot(2);
+                player.setShooting(false);
+            } else if (event.getCode() == KeyCode.DIGIT4) {
+                player.changeWeaponSlot(3);
+                player.setShooting(false);
             }
         });
         
@@ -59,8 +83,6 @@ public class CommandHandler {
         scene.setOnMouseReleased((MouseEvent event) -> {
             player.setShooting(false);
         });
-        
-        
         
         return scene;
     }

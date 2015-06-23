@@ -110,4 +110,5 @@ public interface Figure {
     public boolean isShooting();
     public void setShooting(boolean isShooting);
     
+    public void changeWeaponSlot(int slot);
 }

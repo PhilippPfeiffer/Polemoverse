@@ -88,6 +88,9 @@ public class Game extends Application {
         
         //weapon parameters: API, magazinesize, 
         player.addWeapon(new Pistol(getAPI(),10,5.0,25.0,5.0,1,50.0,1000, 9.0, projectilePhysics));
+        player.addWeapon(new Pistol(getAPI(),10,5.0,50.0,5.0,1,50.0,1000, 9.0, projectilePhysics));
+        player.addWeapon(new Pistol(getAPI(),10,5.0,10.0,5.0,1,50.0,1000, 9.0, projectilePhysics));
+        player.addWeapon(new Pistol(getAPI(),10,5.0,5.0,5.0,1,50.0,1000, 9.0, projectilePhysics));
         
         Scene scene = new Scene(root, maxX, maxY);
         

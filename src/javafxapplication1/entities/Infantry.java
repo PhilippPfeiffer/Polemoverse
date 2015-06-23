@@ -692,4 +692,12 @@ public abstract class Infantry implements Figure{
     public void setShooting(boolean isShooting) {
         this.isShooting = isShooting;
     }
+
+    @Override
+    public void changeWeaponSlot(int slot) {
+        if(slot>=0 && slot<weapons.size() && !isShooting) {
+            setCurrentWeapon(weapons.get(slot));
+            setCooldownTime(0.0);
+        }
+    }
 }
