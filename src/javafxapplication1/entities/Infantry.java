@@ -3,15 +3,12 @@ package javafxapplication1.entities;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafxapplication1.API.API;
 import javafxapplication1.API.PrintWriter;
-import javafxapplication1.physics.VecMath;
 import javafxapplication1.platforms.Platform;
-import projectiles.Bullet_Pistol;
 import weapons.Weapon;
 
 /**
@@ -59,6 +56,7 @@ public abstract class Infantry implements Figure{
     private boolean isPlayer = false;
     private boolean isCoolingDown = false;
     private boolean isShooting = false;
+    private boolean isReloading = false;
    
     private ArrayList<Weapon> weapons = new ArrayList<>();
     private Weapon currentWeapon = null;
@@ -70,6 +68,9 @@ public abstract class Infantry implements Figure{
         if(cooldownTime>0) {
             setCoolingDown(true);
             cooldownTime--;
+            if(isReloading && cooldownTime <= 0) {
+                reload();
+            }
         } else setCoolingDown(false);
     }
     
@@ -633,12 +634,18 @@ public abstract class Infantry implements Figure{
     @Override
     public void shoot() {
         if(isShooting) {
-            if(!isCoolingDown) {
+            if(!isCoolingDown && currentWeapon.getShotsInMagazine() > 0) {
                 double[] startPos = getPosition();
                 double[] targetPos = {api.getCursor().getxPos(), api.getCursor().getyPos()};
                 currentWeapon.fire(startPos, targetPos);
-                setCooldownTime(currentWeapon.getFireRate());
+                currentWeapon.decreaseShots(1);
+                if(!isReloading) {
+                    setCooldownTime(currentWeapon.getFireRate());
+                }
                 System.out.println(printWriter.toString(api.getCursor().getPos()));
+                if(currentWeapon.getShotsInMagazine() <= 0) {
+                    reload();
+                }
             } 
         }
     }
@@ -699,5 +706,26 @@ public abstract class Infantry implements Figure{
             setCurrentWeapon(weapons.get(slot));
             setCooldownTime(0.0);
         }
+    }
+
+    @Override
+    public void reload() {
+        if(!isReloading()) {
+            setCooldownTime(currentWeapon.getReloadTime());
+            setReloading(true);
+        } else if(isReloading && getCooldownTime() <= 0) {
+            currentWeapon.reload();
+            setReloading(false);
+        }
+    }
+
+    @Override
+    public boolean isReloading() {
+        return isReloading;
+    }
+
+    @Override
+    public void setReloading(boolean isReloading) {
+        this.isReloading = isReloading;
     }
 }

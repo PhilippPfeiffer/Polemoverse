@@ -39,6 +39,8 @@ public class CommandHandler {
             } else if (event.getCode() == KeyCode.DIGIT4) {
                 player.changeWeaponSlot(3);
                 player.setShooting(false);
+            } else if (event.getCode() == KeyCode.R) {
+                player.reload();
             }
         });
 

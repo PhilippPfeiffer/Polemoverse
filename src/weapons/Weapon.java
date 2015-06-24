@@ -29,6 +29,8 @@ public interface Weapon {
     double getReloadTime();
 
     double getSpread();
+    
+    double getShotsInMagazine();
 
     boolean isReady();
     
@@ -58,4 +60,8 @@ public interface Weapon {
     
     void setAPI(API api);
     
+    void setShotsInMagazine(int shots);
+    
+    void decreaseShots(int amount);
+    void increaseShots(int amount);
 }

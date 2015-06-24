@@ -109,6 +109,10 @@ public interface Figure {
     public void setCoolingDown(boolean isCoolingDown);
     public boolean isShooting();
     public void setShooting(boolean isShooting);
+    public boolean isReloading();
+    public void setReloading(boolean isRelouding);
     
     public void changeWeaponSlot(int slot);
+    
+    public void reload();
 }

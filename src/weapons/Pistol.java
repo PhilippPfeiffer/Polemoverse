@@ -13,6 +13,7 @@ public class Pistol extends InfantryWeapon {
     public Pistol(API api, int magazineSize, double reloadTime, double fireRate, 
                   double spread, int projectiles, double firingVelocity, 
                   double range, double caliber, ProjectilePhysics projectilePhysics) {
+        setShotsInMagazine(magazineSize);
         setMagazineSize(magazineSize);
         setReloadTime(reloadTime);
         setFireRate(fireRate);

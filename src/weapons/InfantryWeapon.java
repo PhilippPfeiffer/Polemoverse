@@ -14,7 +14,7 @@ import projectiles.Projectile;
  */
 public abstract class InfantryWeapon implements Weapon {
 
-    private int cooldownTime = 0;
+    private int shotsInMagazine = 0;
     private int magazineSize = 0;
     private double reloadTime = 0.0;
     private double fireRate = 0.0;
@@ -138,12 +138,11 @@ public abstract class InfantryWeapon implements Weapon {
             
             api.addProjectile(new Bullet_Pistol(getCaliber(), getFiringVelocity(), getRange(), startPos, target1, projectilePhysics));
         }
-        
     }
     
     @Override
     public void reload() {
-        //TODO
+        setShotsInMagazine(getMagazineSize());
     }
 
     @Override
@@ -154,6 +153,30 @@ public abstract class InfantryWeapon implements Weapon {
     @Override
     public void setAPI(API api) {
         this.api = api;
+    }
+
+    @Override
+    public double getShotsInMagazine() {
+        return shotsInMagazine;
+    }
+
+    @Override
+    public void setShotsInMagazine(int shots) {
+        this.shotsInMagazine = shots;
+    }
+
+    @Override
+    public void decreaseShots(int amount) {
+        if(shotsInMagazine - amount >= 0) {
+            this.shotsInMagazine -= amount;
+        }
+    }
+
+    @Override
+    public void increaseShots(int amount) {
+        if(shotsInMagazine + amount <= magazineSize) {
+            this.shotsInMagazine += amount;
+        }
     }
 
 }
